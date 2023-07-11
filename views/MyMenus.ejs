@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/Head.ejs') %>
+
+<body>
+    <%- include('../partials/Navbar.ejs') %>
+
+    <div class="container">
+        <h1>Mis Menús</h1>
+
+        <%- include('../partials/alerts.ejs') %>
+
+        <div class="row">
+            <div class="col">
+                <h2>Menús Creados</h2>
+                <div class="card-deck">
+                    <% userMenus.forEach(menu => { %>
+                        <%- include('../partials/MenuCard.ejs', {menu: menu}) %>
+                    <% }) %>
+                </div>
+            </div>
+
+            <div class="col">
+                <h2>Menús Guardados</h2>
+                <div class="card-deck">
+                    <% savedMenus.forEach(menu => { %>
+                        <%- include('../partials/MenuCard.ejs', {menu: menu}) %>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/Pagination.ejs', {page: currentPage, totalPages: totalPages}) %>
+    </div>
+
+    <%- include('../partials/Footer.ejs') %>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<% if (messages.error) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= messages.error %>
+    </div>
+<% } %>
+
+<% if (messages.success) { %>
+    <div class="alert alert-success" role="alert">
+        <%= messages.success %>
+    </div>
+<% } %>
+
+<% if (messages.info) { %>
+    <div class="alert alert-info" role="alert">
+        <%= messages.info %>
+    </div>
+<% } %>
+
+<% if (messages.warning) { %>
+    <div class="alert alert-warning" role="alert">
+        <%= messages.warning %>
+    </div>
+<% } %>

@@ -1,0 +1,29 @@
+<form action="/menus" method="POST">
+    <div class="form-group">
+        <label for="menuName">Nombre del Menú</label>
+        <input type="text" class="form-control" id="menuName" name="menuName" placeholder="Introduce el nombre del menú" required>
+    </div>
+
+    <div class="form-group">
+        <label for="menuDescription">Descripción</label>
+        <textarea class="form-control" id="menuDescription" name="menuDescription" rows="3" placeholder="Describe el menú" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="menuType">Tipo de Menú</label>
+        <select class="form-control" id="menuType" name="menuType" required>
+            <option selected>Elige un tipo...</option>
+            <option value="Perder Peso">Perder Peso</option>
+            <option value="Ganar Masa Muscular">Ganar Masa Muscular</option>
+            <option value="Mantener Peso">Mantener Peso</option>
+            <!-- Más opciones según los tipos de menús de tu aplicación -->
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="menuRecipes">Recetas</label>
+        <input type="text" class="form-control" id="menuRecipes" name="menuRecipes" placeholder="Introduce las recetas, separadas por comas" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Menú</button>
+</form>

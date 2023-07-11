@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../partials/Head.ejs') %>
+</head>
+<body>
+  <%- include('../partials/Navbar.ejs') %>
+
+  <div class="container">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h2><%= menu.name %></h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Objetivo: <%= menu.goal %></h5>
+        <p class="card-text">Duración: <%= menu.duration %> días</p>
+        <p class="card-text">Descripción: <%= menu.description %></p>
+
+        <h5>Recetas:</h5>
+        <ul>
+          <% menu.recipes.forEach(function(recipe) { %>
+            <li><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+
+    <%- include('../partials/Footer.ejs') %>
+  </div>
+</body>
+</html>

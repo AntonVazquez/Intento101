@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('../partials/Head.ejs') %>
+</head>
+<body>
+  <%- include('../partials/Navbar.ejs') %>
+
+  <div class="container">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h2><%= recipe.name %></h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Tipo de comida: <%= recipe.type %></h5>
+        <p class="card-text">Dificultad: <%= recipe.difficulty %></p>
+        <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
+        <p class="card-text">Ingredientes: <%= recipe.ingredients.join(', ') %></p>
+        <p class="card-text">Pasos: <%= recipe.steps.join(', ') %></p>
+      </div>
+    </div>
+
+    <%- include('../partials/Footer.ejs') %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<div class="card">
+    <img src="<%= menu.imageUrl %>" class="card-img-top" alt="Imagen del menú <%= menu.title %>">
+    <div class="card-body">
+        <h5 class="card-title"><%= menu.title %></h5>
+        <p class="card-text"><%= menu.description %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Número de días: <%= menu.days %></li>
+        <li class="list-group-item">Objetivo: <%= menu.goal %></li>
+    </ul>
+    <div class="card-body">
+        <% if (user && user.savedMenus.includes(menu._id)) { %>
+            <a href="/menus/unsave/<%= menu._id %>" class="card-link">Quitar de mis menús</a>
+        <% } else { %>
+            <a href="/menus/save/<%= menu._id %>" class="card-link">Guardar menú</a>
+        <% } %>
+        <a href="/menus/<%= menu._id %>" class="card-link">Ver más</a>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<form action="/recipes" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="recipeName">Nombre de la Receta</label>
+        <input type="text" class="form-control" id="recipeName" name="recipeName" placeholder="Introduce el nombre de la receta" required>
+    </div>
+
+    <div class="form-group">
+        <label for="recipeDescription">Descripción</label>
+        <textarea class="form-control" id="recipeDescription" name="recipeDescription" rows="3" placeholder="Describe la receta" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="recipeIngredients">Ingredientes</label>
+        <input type="text" class="form-control" id="recipeIngredients" name="recipeIngredients" placeholder="Introduce los ingredientes, separados por comas" required>
+    </div>
+
+    <div class="form-group">
+        <label for="recipeInstructions">Instrucciones</label>
+        <textarea class="form-control" id="recipeInstructions" name="recipeInstructions" rows="5" placeholder="Introduce las instrucciones de la receta" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="recipeImage">Imagen de la Receta</label>
+        <input type="file" class="form-control-file" id="recipeImage" name="recipeImage">
+    </div>
+
+    <div class="form-group">
+        <label for="recipeCategory">Categoría</label>
+        <select class="form-control" id="recipeCategory" name="recipeCategory" required>
+            <option selected>Elige una categoría...</option>
+            <option value="Desayuno">Desayuno</option>
+            <option value="Almuerzo">Almuerzo</option>
+            <option value="Cena">Cena</option>
+            <!-- Más opciones según las categorías de tu aplicación -->
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Receta</button>
+</form>

@@ -1,0 +1,19 @@
+<div class="card">
+    <img src="<%= recipe.imageUrl %>" class="card-img-top" alt="Imagen de <%= recipe.title %>">
+    <div class="card-body">
+        <h5 class="card-title"><%= recipe.title %></h5>
+        <p class="card-text"><%= recipe.description %></p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Tiempo de preparación: <%= recipe.preparationTime %> minutos</li>
+        <li class="list-group-item">Dificultad: <%= recipe.difficulty %></li>
+    </ul>
+    <div class="card-body">
+        <% if (user && user.savedRecipes.includes(recipe._id)) { %>
+            <a href="/recipes/unsave/<%= recipe._id %>" class="card-link">Quitar de mis recetas</a>
+        <% } else { %>
+            <a href="/recipes/save/<%= recipe._id %>" class="card-link">Guardar receta</a>
+        <% } %>
+        <a href="/recipes/<%= recipe._id %>" class="card-link">Ver más</a>
+    </div>
+</div>
