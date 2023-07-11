@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -18,7 +19,7 @@ app.set('views', path.join(__dirname, 'views')); // Añadido
 app.use(express.static(path.join(__dirname, 'public'))); // Añadido
 
 // Conecta a la base de datos
-const uri = "mongodb+srv://antonvazquez99:Pical@cluster0.wk1crns.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.DB_URL;
 
 // Comprueba que la conexión a la base de datos se ha realizado correctamente
 mongoose.connection.on('connected', () => {
@@ -33,7 +34,7 @@ app.use(bodyParser.json());
 app.use('/api', routers);
 
 // Inicia el servidor
-const port = 5000;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
