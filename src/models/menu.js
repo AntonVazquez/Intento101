@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Define el esquema para un menú
 const MenuSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
   days: {
     type: Number,
     required: true

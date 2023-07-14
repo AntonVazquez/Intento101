@@ -83,3 +83,38 @@ exports.verifyRecipeOwner = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Comparar los precios de una receta en diferentes supermercados
+exports.compareRecipePrices = async (req, res) => {
+  try {
+    // Obtener la receta
+    const recipe = await Recipe.findById(req.params.id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    // Crear un objeto para guardar el costo total de los ingredientes en cada supermercado
+    const supermarketCosts = {};
+
+    // Calcular el costo total de los ingredientes en cada supermercado
+    recipe.ingredients.forEach(ingredient => {
+      ingredient.prices.forEach(priceInfo => {
+        if (!supermarketCosts[priceInfo.supermarket]) {
+          supermarketCosts[priceInfo.supermarket] = 0;
+        }
+        supermarketCosts[priceInfo.supermarket] += priceInfo.price;
+      });
+    });
+
+    // Convertir el objeto de costos en un array y ordenarlo por costo
+    const sortedCosts = Object.keys(supermarketCosts).map(supermarket => ({
+      supermarket,
+      cost: supermarketCosts[supermarket]
+    })).sort((a, b) => a.cost - b.cost);
+
+    res.status(200).json(sortedCosts);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
