@@ -1,0 +1,12 @@
+<div class="ingredient-price-row">
+    <div class="ingredient">
+        <p><%= ingredient.name %></p>
+    </div>
+    <div class="supermarkets">
+        <% ingredient.supermarketPrices.forEach(function(price) { %>
+            <div class="supermarket-price">
+                <p><%= price.supermarket %>: $<%= price.price.toFixed(2) %></p>
+            </div>
+        <% }); %>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <% include ../partials/Head.ejs %>
+    <title>Comparar Precios</title>
+</head>
+<body>
+    <% include ../partials/Navbar.ejs %>
+
+    <div class="container">
+        <h1>Comparar Precios</h1>
+
+        <% if(recipes && recipes.length > 0) { %>
+            <% recipes.forEach(function(recipe) { %>
+                <div class="recipe">
+                    <h2><%= recipe.name %></h2>
+                    <% recipe.ingredients.forEach(function(ingredient) { %>
+                        <% include ../partials/IngredientPriceRow.ejs %>
+                    <% }); %>
+                    <hr>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No se encontraron recetas para comparar.</p>
+        <% } %>
+
+    </div>
+
+    <% include ../partials/Footer.ejs %>
+</body>
+</html>

@@ -22,8 +22,26 @@
 
     <div class="form-group">
         <label for="menuRecipes">Recetas</label>
-        <input type="text" class="form-control" id="menuRecipes" name="menuRecipes" placeholder="Introduce las recetas, separadas por comas" required>
+        <div id="menuRecipes">
+            <input type="text" class="form-control" id="menuRecipes" name="menuRecipes[]" placeholder="ID de la receta" required>
+        </div>
+        <button type="button" id="addRecipe">Añadir receta</button>
     </div>
 
     <button type="submit" class="btn btn-primary">Guardar Menú</button>
 </form>
+
+<!-- Aquí añadirías tu JavaScript para manejar la adición de nuevas recetas -->
+<script>
+    document.getElementById('addRecipe').addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.classList.add('form-control');
+        input.type = 'text';
+        input.name = 'menuRecipes[]';
+        input.placeholder = 'ID de la receta';
+        input.required = true;
+
+        document.getElementById('menuRecipes').appendChild(input);
+    });
+</script>
+

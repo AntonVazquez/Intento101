@@ -9,14 +9,17 @@
   <div class="container">
     <div class="card mt-4">
       <div class="card-header">
-        <h2><%= recipe.name %></h2>
+        <h2><%= recipe.title %></h2>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Tipo de comida: <%= recipe.type %></h5>
+        <h5 class="card-title">Tipo de comida: <%= recipe.typeOfFood %></h5>
         <p class="card-text">Dificultad: <%= recipe.difficulty %></p>
         <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
-        <p class="card-text">Ingredientes: <%= recipe.ingredients.join(', ') %></p>
+        <p class="card-text">Ingredientes: <%= recipe.ingredients.map(ingredient => ingredient.name).join(', ') %></p>
         <p class="card-text">Pasos: <%= recipe.steps.join(', ') %></p>
+
+        
+        <a href="/recipes/<%= recipe._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
       </div>
     </div>
 
@@ -24,3 +27,4 @@
   </div>
 </body>
 </html>
+
