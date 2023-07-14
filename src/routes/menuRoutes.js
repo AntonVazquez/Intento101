@@ -23,4 +23,7 @@ router.post('/:id/save', menuController.ensureAuthenticated, menuController.save
 // Quitar un menú guardado del perfil del usuario
 router.post('/:id/unsave', menuController.ensureAuthenticated, menuController.unsaveMenu);
 
+// Comparar los precios de un menú en diferentes supermercados
+router.get('/:id/comparePrices', menuController.compareMenuPrices);
+
 module.exports = router;

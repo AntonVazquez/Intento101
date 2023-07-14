@@ -73,3 +73,45 @@ exports.verifyMenuOwner = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Función para comparar los precios de los ingredientes de un menú en diferentes supermercados
+exports.compareMenuPrices = async (req, res) => {
+  try {
+    // Busca el menú por su ID y llena el campo 'recipes' con los datos completos de las recetas
+    const menu = await Menu.findById(req.params.id).populate('recipes');
+    
+    if (!menu) {
+      return res.status(404).json({ message: 'Menu not found' });
+    }
+
+    // Crea un objeto para almacenar la suma de los precios de los ingredientes para cada supermercado
+    let supermarkets = {};
+    
+    // Para cada receta en el menú...
+    for (let recipe of menu.recipes) {
+      // ...y para cada ingrediente en la receta...
+      for (let ingredient of recipe.ingredients) {
+        // ...y para cada supermercado en los precios del ingrediente...
+        for (let supermarket in ingredient.prices) {
+          // ...si el supermercado no está ya en el objeto 'supermarkets', añádelo con un precio inicial de 0
+          if (!(supermarket in supermarkets)) {
+            supermarkets[supermarket] = 0;
+          }
+          // Suma el precio del ingrediente en ese supermercado al total del supermercado
+          supermarkets[supermarket] += ingredient.prices[supermarket];
+        }
+      }
+    }
+
+    // Convierte el objeto 'supermarkets' en un array y ordénalo por precio ascendente
+    let sortedSupermarkets = Object.entries(supermarkets).sort((a, b) => a[1] - b[1]);
+
+    // Devuelve el array ordenado de supermercados y precios
+    res.status(200).json(sortedSupermarkets);
+    
+  } catch (error) {
+    // Si hay un error, devuelve un mensaje de error
+    res.status(500).json({ message: error.message });
+  }
+};
+
