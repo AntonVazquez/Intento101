@@ -1,31 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <% include ../partials/Head.ejs %>
-    <title>Comparar Precios</title>
+  <title>Comparar Precios</title>
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <% include ../partials/Navbar.ejs %>
+  <%- include('../partials/Navbar.ejs') %>
+  <%- include('../partials/Head.ejs') %>
 
-    <div class="container">
-        <h1>Comparar Precios</h1>
+  <div class="container">
+    <h1>Comparar Precios</h1>
+    <% if (items && items.length > 0) { %>
+      <% items.forEach(function(item) { %>
+        <h2><%= item.name %></h2>
+        <% item.ingredients.forEach(function(ingredient) { %>
+          <%- include('../partials/IngredientPriceRow.ejs', {ingredient: ingredient}) %>
+        <% }) %>
+        <hr>
+      <% }) %>
+    <% } else { %>
+      <p>No se han encontrado recetas o menús para comparar precios.</p>
+    <% } %>
+  </div>
 
-        <% if(recipes && recipes.length > 0) { %>
-            <% recipes.forEach(function(recipe) { %>
-                <div class="recipe">
-                    <h2><%= recipe.name %></h2>
-                    <% recipe.ingredients.forEach(function(ingredient) { %>
-                        <% include ../partials/IngredientPriceRow.ejs %>
-                    <% }); %>
-                    <hr>
-                </div>
-            <% }); %>
-        <% } else { %>
-            <p>No se encontraron recetas para comparar.</p>
-        <% } %>
-
-    </div>
-
-    <% include ../partials/Footer.ejs %>
+  <%- include('../partials/Footer.ejs') %>
 </body>
 </html>
+
