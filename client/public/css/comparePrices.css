@@ -1,0 +1,50 @@
+/* comparePrices.css */
+
+.compare-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.compare-form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.compare-form input,
+.compare-form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.compare-form button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.compare-form button:hover {
+    background-color: #2980b9;
+}
+
+.compare-results {
+    margin-top: 20px;
+}
+
+.compare-results .price-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}

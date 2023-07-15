@@ -1,0 +1,54 @@
+/* recipe.css */
+
+/* Contenedor principal de la receta */
+
+.recipe-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+/* Contenedor de la información de la receta */
+
+.recipe-info {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.recipe-info h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.recipe-info img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.recipe-info .ingredients,
+.recipe-info .steps {
+    margin-top: 20px;
+}
+
+/* Botón de guardar receta */
+
+.recipe-save-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.recipe-save-button:hover {
+    background-color: #2980b9;
+}
