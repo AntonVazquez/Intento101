@@ -32,5 +32,12 @@ router.get('/menus/created', userController.ensureAuthenticated, userController.
 // Mostrar los menús guardados por el usuario
 router.get('/menus/saved', userController.ensureAuthenticated, userController.showSavedMenus);
 
+// Guardar una receta en el perfil del usuario
+router.post('/recipes/:id/save', userController.ensureAuthenticated, userController.saveRecipe);
+
+// Quitar una receta guardada del perfil del usuario
+router.delete('/recipes/:id/unsave', userController.ensureAuthenticated, userController.unsaveRecipe);
+
+
 module.exports = router;
 

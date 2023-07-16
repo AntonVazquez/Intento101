@@ -1,5 +1,33 @@
 const Menu = require('../models/menu');
 
+// Autenticación de usuario
+exports.ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ message: 'You need to log in to access this resource' });
+};
+
+// Guardar un menú en el perfil del usuario
+exports.saveMenu = async (req, res) => {
+  try {
+    // Aquí va tu lógica para guardar el menú en el perfil del usuario
+    res.status(200).json({ message: 'Menu saved' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Quitar un menú guardado del perfil del usuario
+exports.unsaveMenu = async (req, res) => {
+  try {
+    // Aquí va tu lógica para quitar el menú del perfil del usuario
+    res.status(200).json({ message: 'Menu unsaved' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Mostrar todos los menús
 exports.getAllMenus = async (req, res) => {
   try {

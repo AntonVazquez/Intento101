@@ -1,5 +1,34 @@
 const Recipe = require('../models/recipe');
 
+// Autenticación de usuario
+exports.ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ message: 'You need to log in to access this resource' });
+};
+
+// Guardar una receta en el perfil del usuario
+exports.saveRecipe = async (req, res) => {
+  try {
+    // Aquí va tu lógica para guardar la receta en el perfil del usuario
+    res.status(200).json({ message: 'Recipe saved' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Quitar una receta guardada del perfil del usuario
+exports.unsaveRecipe = async (req, res) => {
+  try {
+    // Aquí va tu lógica para quitar la receta del perfil del usuario
+    res.status(200).json({ message: 'Recipe unsaved' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // Mostrar todas las recetas
 exports.getAllRecipes = async (req, res) => {
   try {

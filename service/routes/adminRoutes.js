@@ -1,26 +1,39 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router(); 
 const adminController = require('../controllers/adminController');
 
-// Mostrar el dashboard del administrador
-router.get('/dashboard', adminController.ensureAdmin, adminController.showDashboard);
+// Obtener todos los usuarios
+router.get('/users', adminController.getUsers);
 
-// Mostrar todos los usuarios
-router.get('/users', adminController.ensureAdmin, adminController.showUsers);
+// Obtener un usuario en particular
+router.get('/users/:id', adminController.getUser);
 
-// Mostrar todas las recetas
-router.get('/recipes', adminController.ensureAdmin, adminController.showRecipes);
+// Eliminar un usuario
+router.delete('/users/:id', adminController.deleteUser);
 
-// Mostrar todos los menús
-router.get('/menus', adminController.ensureAdmin, adminController.showMenus);
+// Editar un usuario
+router.put('/users/:id', adminController.editUser);
 
-// Gestionar usuarios (activar, desactivar, eliminar)
-router.post('/users/manage', adminController.ensureAdmin, adminController.manageUsers);
+// Obtener todas las recetas
+router.get('/recipes', adminController.getRecipes);
 
-// Gestionar recetas (aprobar, rechazar, eliminar)
-router.post('/recipes/manage', adminController.ensureAdmin, adminController.manageRecipes);
+// Obtener una receta en particular
+router.get('/recipes/:id', adminController.getRecipe);
 
-// Gestionar menús (aprobar, rechazar, eliminar)
-router.post('/menus/manage', adminController.ensureAdmin, adminController.manageMenus);
+// Eliminar una receta
+router.delete('/recipes/:id', adminController.deleteRecipe);
 
-module.exports = router;
+// Editar una receta
+router.put('/recipes/:id', adminController.editRecipe);
+
+// Obtener todos los menús
+router.get('/menus', adminController.getMenus);
+
+// Obtener un menú en particular
+router.get('/menus/:id', adminController.getMenu);
+
+// Eliminar un menú
+router.delete('/menus/:id', adminController.deleteMenu);
+
+// Editar un menú
+router.put('/menus/:id', adminController.editMenu);
