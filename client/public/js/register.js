@@ -1,48 +1,42 @@
-/* register.js */
-
-// Imaginando que usamos jQuery
-
 $(document).ready(function() {
-    // Evento al enviar el formulario de registro
-    $('.register-form').on('submit', function(e) {
+    $("form").on("submit", function(e) {
+      // Inicializar una bandera de error a false
+      var error = false;
+  
+      // Limpiar cualquier error de la validación anterior
+      $(".error").remove();
+  
+      // Validar el nombre de usuario
+      var username = $("#username").val();
+      if (username.length < 3) {
+        $("#username").after('<div class="error">El nombre de usuario debe tener al menos 3 caracteres</div>');
+        error = true;
+      }
+  
+      // Validar el correo electrónico
+      var email = $("#email").val();
+      if (!validateEmail(email)) {
+        $("#email").after('<div class="error">Por favor, introduce un correo electrónico válido</div>');
+        error = true;
+      }
+  
+      // Validar la contraseña
+      var password = $("#password").val();
+      if (password.length < 8) {
+        $("#password").after('<div class="error">La contraseña debe tener al menos 8 caracteres</div>');
+        error = true;
+      }
+  
+      // Si hay algún error, prevenir el envío del formulario
+      if (error) {
         e.preventDefault();
-
-        // Recoger los valores de los campos de registro
-        let username = $('#username').val();
-        let email = $('#email').val();
-        let password = $('#password').val();
-        let confirm_password = $('#confirm_password').val();
-
-        // Validar que ninguno de los campos esté vacío
-        if(username === '' || email === '' || password === '' || confirm_password === '') {
-            alert('Por favor, llena todos los campos.');
-            return;
-        }
-
-        // Verificar que las contraseñas coincidan
-        if(password !== confirm_password) {
-            alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
-            return;
-        }
-
-        // Enviar la solicitud de registro al servidor
-        $.ajax({
-            url: '/register',
-            method: 'POST',
-            data: {
-                username: username,
-                email: email,
-                password: password
-            },
-            success: function(response) {
-                if(response.status === 'ok') {
-                    // Redirigir al usuario a la página de inicio de sesión
-                    window.location.href = '/login';
-                } else {
-                    // Mostrar un mensaje de error
-                    alert('Hubo un error durante el registro. Por favor, inténtalo de nuevo.');
-                }
-            }
-        });
+      }
     });
-});
+  
+    // Función para validar el correo electrónico
+    function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+  });
+  

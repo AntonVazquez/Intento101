@@ -1,33 +1,40 @@
-// main.js
+$(document).ready(function() {
+  // Esto se ejecuta cuando la página ha terminado de cargar
 
-// Espacio para importar módulos externos (si es necesario)
-// Por ejemplo: import axios from 'axios';
+  // Funciones de ayuda globales
+  function showError(message) {
+    // Muestra un mensaje de error al usuario
+    alert("Error: " + message);
+  }
 
-// Funciones globales que pueden ser utilizadas en múltiples partes de tu aplicación.
+  function showSuccess(message) {
+    // Muestra un mensaje de éxito al usuario
+    alert("Éxito: " + message);
+  }
 
-function showAlert(message, type) {
-    // Aquí puedes agregar código para mostrar una alerta en tu aplicación.
-    // message es el texto que quieres mostrar y type es, por ejemplo, 'error' o 'success'
-  }
-  
-  function handleApiError(error) {
-    // Esta función puede manejar errores que vienen de tus llamadas API
-    showAlert(error.message, 'error');
-  }
-  
-  // Aquí puedes agregar más funciones que creas que serán útiles en diferentes partes de tu aplicación.
-  
-  // Eventos globales, como un evento que se ejecuta cuando la página se carga.
-  
-  window.onload = function() {
-    // Aquí puedes agregar código que quieres que se ejecute cuando la página se cargue.
-    // Por ejemplo, puedes querer cargar algunos datos iniciales de tu API.
-  }
-  
-  // También puedes querer agregar un evento global de manejo de errores.
-  
-  window.onerror = function(error) {
-    // Aquí puedes agregar código para manejar cualquier error no capturado en tu aplicación.
-    handleApiError(error);
-  }
+  // Configuración global de la biblioteca
+  $.ajaxSetup({
+    error: function(jqXHR, textStatus, errorThrown) {
+      // Si ocurre un error en una solicitud AJAX, muestra un mensaje de error
+      showError(errorThrown);
+    },
+    beforeSend: function(xhr, settings) {
+      // Esto se ejecuta antes de que se envíe una solicitud AJAX
+      // Podrías usarlo para, por ejemplo, mostrar una animación de carga
+    },
+    complete: function(xhr, textStatus) {
+      // Esto se ejecuta cuando una solicitud AJAX ha terminado
+      // Podrías usarlo para, por ejemplo, ocultar la animación de carga
+    }
+  });
+
+  // Código común a todas las páginas
+  $(".navbar .nav-link").on("click", function() {
+    // Cuando el usuario hace clic en un enlace en la barra de navegación,
+    // destaca el enlace actualmente activo
+    $(".navbar .nav-link").removeClass("active");
+    $(this).addClass("active");
+  });
+});
+
   

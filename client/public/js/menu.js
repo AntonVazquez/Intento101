@@ -1,15 +1,19 @@
-/* menu.js */
-
-// Imaginando que usamos jQuery
-
 $(document).ready(function() {
-    // Evento al hacer clic en el botón de guardar menú
-    $('.menu-save-button').on('click', function(e) {
-        e.preventDefault();
-
-        // Aquí puedes llamar a la API para guardar el menú, por ejemplo:
-        // $.post('/api/saveMenu', { menuId: $(this).data('id') })
-        //   .done(function() { alert('Menú guardado con éxito.'); })
-        //   .fail(function() { alert('Error al guardar el menú.'); });
+    // Manejar los clics en el botón de "Comparar precios"
+    $("#compare-prices-button").click(function(event) {
+      event.preventDefault();
+  
+      var menuId = $(this).data("menu-id");
+  
+      $.get("/menus/" + menuId + "/comparePrices")
+        .done(function(data) {
+          if (data.status === "success") {
+            // Mostrar los precios comparados en una nueva ventana o modal
+            window.open("/menus/" + menuId + "/prices");
+          } else {
+            // Mostrar un mensaje de error si la comparación de precios falló
+            alert("La comparación de precios falló. Por favor, inténtalo de nuevo más tarde.");
+          }
+        });
     });
-});
+  });

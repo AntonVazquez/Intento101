@@ -1,15 +1,20 @@
-/* recipe.js */
-
-// Imaginando que usamos jQuery
-
 $(document).ready(function() {
-    // Evento al hacer clic en el botón de guardar receta
-    $('.recipe-save-button').on('click', function(e) {
-        e.preventDefault();
-
-        // Aquí puedes llamar a la API para guardar la receta, por ejemplo:
-        // $.post('/api/saveRecipe', { recipeId: $(this).data('id') })
-        //   .done(function() { alert('Receta guardada con éxito.'); })
-        //   .fail(function() { alert('Error al guardar la receta.'); });
+    // Manejar los clics en el botón de "Comparar precios"
+    $("#compare-prices-button").click(function(event) {
+      event.preventDefault();
+  
+      var recipeId = $(this).data("recipe-id");
+  
+      $.get("/recipes/" + recipeId + "/comparePrices")
+        .done(function(data) {
+          if (data.status === "success") {
+            // Mostrar los precios comparados en una nueva ventana o modal
+            window.open("/recipes/" + recipeId + "/prices");
+          } else {
+            // Mostrar un mensaje de error si la comparación de precios falló
+            alert("La comparación de precios falló. Por favor, inténtalo de nuevo más tarde.");
+          }
+        });
     });
-});
+  });
+  
