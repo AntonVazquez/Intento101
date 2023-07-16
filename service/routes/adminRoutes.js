@@ -37,3 +37,5 @@ router.delete('/menus/:id', adminController.deleteMenu);
 
 // Editar un menú
 router.put('/menus/:id', adminController.editMenu);
+
+module.exports = router;

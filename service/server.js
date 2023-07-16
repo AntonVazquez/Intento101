@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path'); // Añadido
+const path = require('path');
 
 // Importa los routers
 const routers = require('./routes/index');
@@ -12,14 +12,15 @@ const routers = require('./routes/index');
 const app = express();
 
 // Configura EJS como motor de vistas
-app.set('view engine', 'ejs'); // Añadido
-app.set('views', path.join(__dirname, 'views')); // Añadido
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Configura la app para usar archivos estáticos desde la carpeta 'public'
-app.use(express.static(path.join(__dirname, 'public'))); // Añadido
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Conecta a la base de datos
 const uri = process.env.DB_URL;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Comprueba que la conexión a la base de datos se ha realizado correctamente
 mongoose.connection.on('connected', () => {
@@ -31,10 +32,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Configura las rutas
-app.use('/api', routers);
+routers(app); // Usar la función importada de routers para configurar las rutas
 
 // Inicia el servidor
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
