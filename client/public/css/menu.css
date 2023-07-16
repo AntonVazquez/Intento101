@@ -1,48 +1,61 @@
-/* menu.css */
-
-/* Contenedor principal del menú */
-
-.menu-container {
-    width: 100%;
-    max-width: 800px;
+.container {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 50px 0;
+    padding: 20px;
 }
 
-/* Contenedor de la información del menú */
-
-.menu-info {
-    background-color: #f9f9f9;
-    padding: 30px;
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-
-.menu-info h1 {
     margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-bottom: 1px solid #e5e7eb;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.card-header h2 {
+    margin: 0;
     font-size: 24px;
-    color: #333;
+    font-weight: 500;
 }
 
-.menu-info .meals,
-.menu-info .instructions {
-    margin-top: 20px;
+.card-header small {
+    font-size: 14px;
+    color: #6b7280;
+    display: block;
 }
 
-/* Botón de guardar menú */
+.card-body {
+    padding: 20px;
+}
 
-.menu-save-button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+.card-body h5 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+.card-body p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+.card-body ul {
+    padding-left: 20px;
+}
+
+.card-body a {
+    color: #0d6efd;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
 }
 
-.menu-save-button:hover {
-    background-color: #2980b9;
+.card-body a:hover {
+    text-decoration: underline;
 }

@@ -1,49 +1,54 @@
-/* register.css */
-
-/* Contenedor principal del formulario de registro */
-
-.register-container {
-    width: 100%;
-    max-width: 500px;
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    width: 80%;
     margin: 0 auto;
-    padding: 50px 0;
-}
-
-/* Formulario de registro */
-
-.register-form {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-
-.register-form h1 {
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  form {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  .form-group {
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-}
-
-.register-form input[type="text"], .register-form input[type="password"], .register-form input[type="email"] {
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-group input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #333;
-}
-
-.register-form button[type="submit"] {
-    background-color: #3498db;
+    font-size: 1em;
+  }
+  
+  button.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
     color: #fff;
-    padding: 10px;
-    border-radius: 5px;
+    background-color: #007bff;
     border: none;
-    width: 100%;
+    margin-top: 20px;
     cursor: pointer;
-}
-
-.register-form button[type="submit"]:hover {
-    background-color: #2980b9;
-}
+  }
+  
+  button.btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 5px;
+  }
+  

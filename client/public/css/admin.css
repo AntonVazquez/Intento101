@@ -1,46 +1,69 @@
-/* admin.css */
+/* Estilos generales */
 
-.admin-container {
-    width: 100%;
-    max-width: 800px;
+.container {
+    max-width: 960px;
     margin: 0 auto;
-    padding: 50px 0;
-}
-
-.admin-dashboard {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-.admin-dashboard .user-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.admin-dashboard .user-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.admin-dashboard .user-item:last-child {
-    border-bottom: none;
-}
-
-.admin-dashboard .user-item .btn-delete {
-    background-color: #e74c3c;
+  }
+  
+  .jumbotron {
+    background-color: #f8f9fa;
+  }
+  
+  .jumbotron .btn {
     color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.admin-dashboard .user-item .btn-delete:hover {
-    background-color: #c0392b;
-}
+    background-color: #007bff;
+  }
+  
+  /* Estilos para los botones de gestión */
+  
+  .manage-btn {
+    margin-right: 5px;
+  }
+  
+  .manage-btn[data-action="activate"] {
+    color: #fff;
+    background-color: #28a745;
+  }
+  
+  .manage-btn[data-action="deactivate"] {
+    color: #fff;
+    background-color: #ffc107;
+  }
+  
+  .manage-btn[data-action="delete"] {
+    color: #fff;
+    background-color: #dc3545;
+  }
+  
+  /* Estilos para la tabla de recursos */
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table th, table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+  }
+  
+  table th {
+    background-color: #e9ecef;
+    text-align: left;
+  }
+  
+  table td .status {
+    text-transform: capitalize;
+  }
+  
+  /* Estilos para la vista de usuarios, recetas y menús */
+  
+  #users-view, #recipes-view, #menus-view {
+    display: none;
+  }
+  
+  #users-view.active, #recipes-view.active, #menus-view.active {
+    display: block;
+  }
+  

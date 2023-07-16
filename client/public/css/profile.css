@@ -1,57 +1,69 @@
-/* profile.css */
-
-/* Contenedor principal del perfil */
-
-.profile-container {
-    width: 100%;
-    max-width: 600px;
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 50px 0;
-}
-
-/* Contenedor de la información del perfil */
-
-.profile-info {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-
-.profile-info h1 {
+  }
+  
+  .card {
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-}
-
-.profile-info .profile-field {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  .card-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  h2 {
     margin-bottom: 10px;
-}
-
-.profile-info .profile-field label {
-    font-weight: bold;
-    color: #333;
-}
-
-.profile-info .profile-field span {
-    font-size: 16px;
-    color: #333;
-}
-
-/* Botón de edición */
-
-.profile-edit-button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+  }
+  
+  h5 {
     margin-top: 20px;
-}
-
-.profile-edit-button:hover {
-    background-color: #2980b9;
-}
+    margin-bottom: 10px;
+  }
+  
+  .card-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .card-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  ul.list-group.list-group-flush > li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+  }
+  
+  .btn {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .row > .col-md-4 {
+    padding: 15px;
+  }
+  
+  img.card-img-top {
+    width: 100%;
+    height: auto;
+  }
+  
