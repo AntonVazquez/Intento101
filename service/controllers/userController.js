@@ -21,8 +21,10 @@ exports.registerUser = async (req, res) => {
 
   try {
     await newUser.save();
+    req.flash('success', 'Registrado con éxito. Por favor inicie sesión.');
     res.redirect('/login');
   } catch (err) {
+    req.flash('error', 'Hubo un error al intentar registrarte. Por favor, inténtalo de nuevo.');
     res.redirect('/register');
   }
 };
@@ -34,14 +36,16 @@ exports.showLoginForm = (req, res) => {
 
 // Autenticación de usuarios
 exports.loginUser = passport.authenticate('local', {
-  successRedirect: '/dashboard',
+  successRedirect: '/profile',
+  successFlash: 'Has iniciado sesión con éxito.',
   failureRedirect: '/login',
-  failureFlash: true,
+  failureFlash: 'Usuario o contraseña incorrectos.',
 });
 
 // Cerrar sesión
 exports.logout = (req, res) => {
   req.logout();
+  req.flash('success', 'Has cerrado sesión con éxito.');
   res.redirect('/login');
 };
 
