@@ -19,11 +19,11 @@ app.set('views', path.join(__dirname, '..', 'client', 'views'));
 app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
 
 app.get('/', (req, res) => {
-  let data = {
-      title: "Home Page",
-      username: "Anton"
-  }
-  res.render('home', data);
+    let data = {
+        title: "Home Page",
+        username: "Anton"
+    }
+    res.render('Register', data);
 });
 
 

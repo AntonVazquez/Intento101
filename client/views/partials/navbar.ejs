@@ -14,14 +14,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/menus">Menús</a>
             </li>
-            <% if (!user) { %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Iniciar Sesión</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Registrarse</a>
-                </li>
-            <% } else { %>
+            <% if (typeof user !== 'undefined' && user) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="/user/profile">Perfil</a>
                 </li>
@@ -33,7 +26,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Cerrar Sesión</a>
                 </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Registrarse</a>
+                </li>
             <% } %>
         </ul>
     </div>
 </nav>
+
