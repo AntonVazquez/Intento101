@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-<%- include('../partials/Head.ejs') %>
+<%- include('partials/head.ejs') %>
 
 <body>
-  <%- include('../partials/Navbar.ejs') %>
+  <%- include('partials/navbar.ejs') %>
 
   <div class="container">
     <h1>Bienvenidos a Nuestra Aplicación de Recetas</h1>
@@ -11,19 +11,19 @@
     <h2>Recetas Populares</h2>
     <div class="recipe-list">
       <% popularRecipes.forEach(recipe => { %>
-        <%- include('../partials/RecipeCard.ejs', { recipe: recipe }) %>
+        <%- include('partials/recipeCard.ejs', { recipe: recipe }) %>
       <% }) %>
     </div>
 
     <h2>Menús Populares</h2>
     <div class="menu-list">
       <% popularMenus.forEach(menu => { %>
-        <%- include('../partials/MenuCard.ejs', { menu: menu }) %>
+        <%- include('partials/menuCard.ejs', { menu: menu }) %>
       <% }) %>
     </div>
   </div>
 
-  <%- include('../partials/Footer.ejs') %>
+  <%- include('./partials/Footer.ejs') %>
 </body>
 
 </html>

@@ -13,10 +13,18 @@ const app = express();
 
 // Configura EJS como motor de vistas
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '..', 'client', 'views'));
 
 // Configura la app para usar archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
+
+app.get('/', (req, res) => {
+  let data = {
+      title: "Home Page",
+      username: "Anton"
+  }
+  res.render('home', data);
+});
 
 
 // Conecta a la base de datos
