@@ -39,11 +39,12 @@ app.use(passport.session());
 require('./config/passportConfig')(passport);
 
 app.get('/', (req, res) => {
-    let data = {
-        title: "Home Page",
-        username: "Anton"
-    }
-    res.render('Register', data);
+  let data = {
+      title: "Home Page",
+      username: "Anton",
+      messages: req.flash()
+  }
+  res.render('Register', data);
 });
 
 // Conecta a la base de datos
@@ -58,6 +59,7 @@ mongoose.connection.on('connected', () => {
 // Configura el middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // Esto analiza las solicitudes x-www-form-urlencoded
 
 // Configura las rutas
 routers(app); // Usar la función importada de routers para configurar las rutas

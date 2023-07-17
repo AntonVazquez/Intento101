@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%- include('../partials/Head.ejs') %>
+  <%- include('partials/Head.ejs') %>
 </head>
 <body>
-  <%- include('../partials/Navbar.ejs') %>
+  <%- include('partials/Navbar.ejs') %>
 
   <div class="container mt-4">
     <div class="card">
@@ -19,7 +19,7 @@
         <div class="row">
           <% user.savedRecipes.forEach(recipe => { %>
             <div class="col-md-4">
-              <%- include('../partials/RecipeCard.ejs', { recipe: recipe }) %>
+              <%- include('partials/RecipeCard.ejs', { recipe: recipe }) %>
             </div>
           <% }) %>
         </div>
@@ -28,7 +28,7 @@
         <div class="row">
           <% user.savedMenus.forEach(menu => { %>
             <div class="col-md-4">
-              <%- include('../partials/MenuCard.ejs', { menu: menu }) %>
+              <%- include('partials/MenuCard.ejs', { menu: menu }) %>
             </div>
           <% }) %>
         </div>
@@ -36,6 +36,6 @@
     </div>
   </div>
 
-  <%- include('../partials/Footer.ejs') %>
+  <%- include('partials/Footer.ejs') %>
 </body>
 </html>

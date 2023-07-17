@@ -4,7 +4,7 @@ const passport = require('passport');
 
 // Mostrar formulario de registro
 exports.showRegisterForm = (req, res) => {
-  res.render('register');
+  res.render('register', { messages: req.flash() });
 };
 
 // Registro de usuarios
@@ -22,23 +22,23 @@ exports.registerUser = async (req, res) => {
   try {
     await newUser.save();
     req.flash('success', 'Registrado con éxito. Por favor inicie sesión.');
-    res.redirect('/login');
+    res.redirect('/users/login');
   } catch (err) {
     req.flash('error', 'Hubo un error al intentar registrarte. Por favor, inténtalo de nuevo.');
-    res.redirect('/register');
+    res.redirect('/users/register');
   }
 };
 
 // Mostrar formulario de login
 exports.showLoginForm = (req, res) => {
-  res.render('login');
+  res.render('login', { messages: req.flash() });
 };
 
 // Autenticación de usuarios
 exports.loginUser = passport.authenticate('local', {
-  successRedirect: '/profile',
+  successRedirect: '/users/profile',
   successFlash: 'Has iniciado sesión con éxito.',
-  failureRedirect: '/login',
+  failureRedirect: '/users/login',
   failureFlash: 'Usuario o contraseña incorrectos.',
 });
 
@@ -46,37 +46,37 @@ exports.loginUser = passport.authenticate('local', {
 exports.logout = (req, res) => {
   req.logout();
   req.flash('success', 'Has cerrado sesión con éxito.');
-  res.redirect('/login');
+  res.redirect('/users/login');
 };
 
 // Mostrar perfil del usuario
 exports.showProfile = async (req, res) => {
   const user = await User.findById(req.user._id);
-  res.render('profile', { user });
+  res.render('profile', { user, messages: req.flash() });
 };
 
 // Actualizar perfil del usuario
 exports.updateProfile = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, { new: true });
-  res.render('profile', { user: updatedUser });
+  res.render('profile', { user: updatedUser, messages: req.flash() });
 };
 
 // Mostrar recetas del usuario
 exports.showRecipes = async (req, res) => {
   const user = await User.findById(req.user._id).populate('recipes');
-  res.render('recipes', { recipes: user.recipes });
+  res.render('recipes', { recipes: user.recipes, messages: req.flash() });
 };
 
 // Mostrar menús creados por el usuario
 exports.showCreatedMenus = async (req, res) => {
   const user = await User.findById(req.user._id).populate('createdMenus');
-  res.render('menus', { menus: user.createdMenus });
+  res.render('menus', { menus: user.createdMenus, messages: req.flash() });
 };
 
 // Mostrar menús guardados por el usuario
 exports.showSavedMenus = async (req, res) => {
   const user = await User.findById(req.user._id).populate('savedMenus');
-  res.render('savedMenus', { menus: user.savedMenus });
+  res.render('savedMenus', { menus: user.savedMenus, messages: req.flash() });
 };
 
 // Guardar una receta en el perfil del usuario
@@ -113,5 +113,5 @@ exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect('/users/login');
 };
