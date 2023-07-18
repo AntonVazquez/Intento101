@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
       username: "Anton",
       messages: req.flash()
   }
-  res.render('Register', data);
+  res.render('home', data);
 });
 
 // Conecta a la base de datos
