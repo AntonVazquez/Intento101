@@ -30,12 +30,13 @@ exports.unsaveRecipe = async (req, res) => {
 
 
 // Mostrar todas las recetas
-exports.getAllRecipes = async (req, res) => {
+exports.getAllRecipes = async () => {
   try {
     const recipes = await Recipe.find();
-    res.status(200).json(recipes);
+    return recipes;
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    return [];
   }
 };
 

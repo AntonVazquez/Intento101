@@ -3,6 +3,7 @@ const adminRoutes = require('./adminRoutes');
 const menuRoutes = require('./menuRoutes');
 const recipeRoutes = require('./recipeRoutes');
 const userRoutes = require('./userRoutes');
+const homeRoutes = require('./homeRoutes');
 
 // Exporta una función que toma una aplicación Express y monta las rutas
 module.exports = function(app) {
@@ -11,4 +12,5 @@ module.exports = function(app) {
   app.use('/menus', menuRoutes);
   app.use('/recipes', recipeRoutes);
   app.use('/users', userRoutes);
+  app.use('/home', homeRoutes);
 };

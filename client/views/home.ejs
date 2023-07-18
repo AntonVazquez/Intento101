@@ -8,20 +8,26 @@
   <div class="container">
     <h1>Bienvenidos a Nuestra Aplicación de Recetas</h1>
 
-    <h2>Recetas Populares</h2>
     <div class="recipe-list">
-      <% popularRecipes.forEach(recipe => { %>
-        <%- include('partials/recipeCard.ejs', { recipe: recipe }) %>
-      <% }) %>
+      <% if (typeof recipes !== 'undefined' && recipes.length > 0) { %>
+        <% recipes.forEach(recipe => { %>
+          <%- include('partials/recipeCard.ejs', { recipe: recipe }) %>
+        <% }) %>
+      <% } else { %>
+        <p>No hay recetas disponibles.</p>
+      <% } %>
     </div>
-
-    <h2>Menús Populares</h2>
+    
     <div class="menu-list">
-      <% popularMenus.forEach(menu => { %>
-        <%- include('partials/menuCard.ejs', { menu: menu }) %>
-      <% }) %>
+      <% if (typeof menus !== 'undefined' && menus.length > 0) { %>
+        <% menus.forEach(menu => { %>
+          <%- include('partials/menuCard.ejs', { menu: menu }) %>
+        <% }) %>
+      <% } else { %>
+        <p>No hay menús disponibles.</p>
+      <% } %>
     </div>
-  </div>
+    
 
   <%- include('./partials/Footer.ejs') %>
 </body>

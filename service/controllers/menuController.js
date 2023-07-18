@@ -29,12 +29,13 @@ exports.unsaveMenu = async (req, res) => {
 };
 
 // Mostrar todos los menús
-exports.getAllMenus = async (req, res) => {
+exports.getAllMenus = async () => {
   try {
     const menus = await Menu.find();
-    res.status(200).json(menus);
+    return menus;
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log(error);
+    return [];
   }
 };
 
