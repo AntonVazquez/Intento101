@@ -2,6 +2,12 @@ const User = require('../models/user');
 const Recipe = require('../models/recipe');
 const Menu = require('../models/menu');
 
+// Mostrar pagina administrador
+exports.showAdminPage = (req, res) => {
+  res.render('admin');
+};
+
+
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -139,4 +145,6 @@ exports.editUser = async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   };
+  
+
   

@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router(); 
 const adminController = require('../controllers/adminController');
 
+// Mostrar la página de administración
+router.get('/', adminController.showAdminPage);
+
 // Obtener todos los usuarios
 router.get('/users', adminController.getUsers);
 
