@@ -39,12 +39,8 @@ app.use(passport.session());
 require('./config/passportConfig')(passport);
 
 app.get('/', (req, res) => {
-  let data = {
-      title: "Home Page",
-      username: "Anton",
-      messages: req.flash()
-  }
-  res.render('home', data);
+  
+  res.render('home');
 });
 
 // Conecta a la base de datos

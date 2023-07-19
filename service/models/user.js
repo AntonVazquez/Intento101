@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
-// Define el esquema para un usuario
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -50,37 +49,26 @@ const UserSchema = new mongoose.Schema({
   timestamps: true, // añade campos createdAt y updatedAt
 });
 
-// Antes de guardar el usuario, encripta la contraseña
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', async function(next) {
   const user = this;
 
-  if (!user.isModified('password')) {
-    return next();
+  if (user.isModified('password') || this.isNew) {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(user.password, salt);
+    
+    user.password = hash;
   }
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) {
-      return next(err);
-    }
-
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
-
-      user.password = hash;
-      next();
-    });
-  });
+  next();
 });
 
-// Método para verificar la contraseña
 UserSchema.methods.comparePassword = function(candidatePassword) {
   const user = this;
 
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
       if (err) {
+        console.log('Error al comparar contraseñas:', err);
         return reject(err);
       }
 

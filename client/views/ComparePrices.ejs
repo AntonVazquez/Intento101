@@ -5,8 +5,8 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-  <%- include('../partials/Navbar.ejs') %>
-  <%- include('../partials/Head.ejs') %>
+  <%- include('partials/Navbar.ejs') %>
+  <%- include('partials/Head.ejs') %>
 
   <div class="container">
     <h1>Comparar Precios</h1>
@@ -14,7 +14,7 @@
       <% items.forEach(function(item) { %>
         <h2><%= item.name %></h2>
         <% item.ingredients.forEach(function(ingredient) { %>
-          <%- include('../partials/IngredientPriceRow.ejs', {ingredient: ingredient}) %>
+          <%- include('partials/IngredientPriceRow.ejs', {ingredient: ingredient}) %>
         <% }) %>
         <hr>
       <% }) %>
@@ -23,7 +23,7 @@
     <% } %>
   </div>
 
-  <%- include('../partials/Footer.ejs') %>
+  <%- include('partials/Footer.ejs') %>
 </body>
 </html>
 

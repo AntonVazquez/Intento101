@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
-<%- include('../partials/Head.ejs') %>
+<%- include('partials/Head.ejs') %>
 
 <body>
-    <%- include('../partials/Navbar.ejs') %>
+    <%- include('partials/Navbar.ejs') %>
 
     <div class="container">
         <h1>Editar Perfil</h1>
 
-        <%- include('../partials/alerts.ejs') %>
+        <%- include('partials/alerts.ejs') %>
 
         <form method="post" action="/editProfile">
-            <%- include('../partials/ProfileForm.ejs', {user: currentUser}) %>
+            <%- include('partials/ProfileForm.ejs', {user: currentUser}) %>
 
             <div class="form-group">
                 <input type="submit" value="Guardar cambios" class="btn btn-primary">

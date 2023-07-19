@@ -1,0 +1,36 @@
+.navbar {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.navbar-toggler {
+    border-color: #ddd;
+}
+
+.navbar-toggler-icon {
+    background-image: url(data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2222%22%20height=%2222%22%20viewBox=%220%200%2030%2030%22%3E%3Cpath%20stroke=%22%23333%22%20stroke-width=%222%22%20stroke-linecap=%22round%22%20stroke-miterlimit=%2210%22%20d=%22M4%207h22M4%2015h22M4%2023h22%22/%3E%3C/svg%3E);
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.nav-item {
+    margin: 0 1em;
+}
+
+.nav-item a {
+    color: #333;
+}
+
+.nav-item.active a {
+    color: #181d22;
+}

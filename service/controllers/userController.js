@@ -16,7 +16,7 @@ exports.registerUser = async (req, res) => {
   const newUser = new User({
     username,
     email,
-    password: hashedPassword,
+    password,  
   });
 
   try {
@@ -38,7 +38,7 @@ exports.showLoginForm = (req, res) => {
 exports.loginUser = passport.authenticate('local', {
   successRedirect: '/users/profile',
   successFlash: 'Has iniciado sesión con éxito.',
-  failureRedirect: '/users/login',
+  failureRedirect: 'login',
   failureFlash: 'Usuario o contraseña incorrectos.',
 });
 
