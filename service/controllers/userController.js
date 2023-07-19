@@ -42,6 +42,14 @@ exports.loginUser = passport.authenticate('local', {
   failureFlash: 'Usuario o contraseña incorrectos.',
 });
 
+// Middleware para garantizar que el usuario esté autenticado
+exports.ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/users/login');
+};
+
 // Cerrar sesión
 exports.logout = (req, res) => {
   req.logout();
@@ -107,11 +115,3 @@ exports.saveRecipe = async (req, res) => {
       res.status(400).json({ message: 'Recipe not found in saved recipes' });
     }
   };
-
-// Middleware para garantizar que el usuario esté autenticado
-exports.ensureAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/users/login');
-};

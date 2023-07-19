@@ -6,6 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongo');
 const flash = require('connect-flash'); // Importamos el modulo connect-flash
 
 // Importa los routers
@@ -21,11 +22,23 @@ app.set('views', path.join(__dirname, '..', 'client', 'views'));
 // Configura la app para usar archivos estáticos desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
 
+// Conecta a la base de datos
+const uri = process.env.DB_URL;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Configura MongoDBStore con la URL de MongoDB
+const store = MongoDBStore.create({ 
+  mongoUrl: process.env.DB_URL, 
+  mongooseConnection: mongoose.connection, 
+  collection: 'sessions' 
+});
+
 // Configura sesiones para manejar la autenticación del usuario
 app.use(session({
-  secret: process.env.SECRET, // Deberías considerar almacenar la llave secreta en un archivo .env
+  secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true,
+  store: store
 }));
 
 // Configura connect-flash para los mensajes flash
@@ -35,17 +48,18 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Implementa middleware para hacer 'user' accesible en las vistas
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 // Configura Passport
 require('./config/passportConfig')(passport);
 
 app.get('/', (req, res) => {
-  
   res.render('home');
 });
-
-// Conecta a la base de datos
-const uri = process.env.DB_URL;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Comprueba que la conexión a la base de datos se ha realizado correctamente
 mongoose.connection.on('connected', () => {
