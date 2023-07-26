@@ -51,11 +51,21 @@ exports.ensureAuthenticated = (req, res, next) => {
 };
 
 // Cerrar sesión
-exports.logout = (req, res) => {
-  req.logout();
-  req.flash('success', 'Has cerrado sesión con éxito.');
-  res.redirect('/users/login');
+exports.logout = (req, res, next) => {
+  console.log('req:', req);
+  console.log('req.logout:', req.logout);
+  
+  req.logout(function(err) {
+    if (err) {
+      console.log('Hubo un error durante el logout:', err);
+      return next(err);
+    }
+    
+    req.flash('success', 'Has cerrado sesión con éxito.');
+    res.redirect('/users/login');
+  });
 };
+
 
 // Mostrar perfil del usuario
 exports.showProfile = async (req, res) => {
