@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-// Define el esquema para una receta
 const RecipeSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
+  },
+  description: {
+    type: String
   },
   ingredients: [
     {
@@ -18,12 +20,10 @@ const RecipeSchema = new mongoose.Schema({
       prices: [
         {
           supermarket: {
-            type: String,
-            required: true
+            type: String
           },
           price: {
-            type: Number,
-            required: true
+            type: Number
           }
         }
       ]
@@ -33,10 +33,9 @@ const RecipeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  typeOfFood: {
-    type: String,
-    required: true
-  },
+  typeOfFood: [{
+    type: String
+  }],
   difficulty: {
     type: String,
     required: true
@@ -44,6 +43,9 @@ const RecipeSchema = new mongoose.Schema({
   preparationTime: {
     type: Number,
     required: true
+  },
+  image: {
+    type: String
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

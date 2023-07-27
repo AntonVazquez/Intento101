@@ -10,35 +10,39 @@ exports.ensureAuthenticated = (req, res, next) => {
 
 // Guardar una receta en el perfil del usuario
 exports.saveRecipe = async (req, res) => {
-  try {
-    // Aquí va tu lógica para guardar la receta en el perfil del usuario
-    res.status(200).json({ message: 'Recipe saved' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+    try {
+      const user = await User.findById(req.user._id);
+      user.savedRecipes.push(req.body.recipeId);
+      await user.save();
+      res.status(200).json({ message: 'Recipe saved' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 
 // Quitar una receta guardada del perfil del usuario
 exports.unsaveRecipe = async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      user.savedRecipes.pull(req.body.recipeId);
+      await user.save();
+      res.status(200).json({ message: 'Recipe unsaved' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+
+// Mostrar todas las recetas
+exports.getAllRecipes = async (req, res) => {
   try {
-    // Aquí va tu lógica para quitar la receta del perfil del usuario
-    res.status(200).json({ message: 'Recipe unsaved' });
+    const recipes = await Recipe.find();
+    res.status(200).json(recipes);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
-// Mostrar todas las recetas
-exports.getAllRecipes = async () => {
-  try {
-    const recipes = await Recipe.find();
-    return recipes;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
 
 // Mostrar una receta específica
 exports.getRecipe = async (req, res) => {
@@ -93,13 +97,13 @@ exports.deleteRecipe = async (req, res) => {
 
 // Buscar recetas
 exports.searchRecipes = async (req, res) => {
-  try {
-    const recipes = await Recipe.find({ name: { $regex: req.body.query, $options: 'i' } });
-    res.status(200).json(recipes);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+    try {
+      const recipes = await Recipe.find({ title: { $regex: req.body.query, $options: 'i' } });
+      res.status(200).json(recipes);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 
 // Verificar el propietario de la receta
 exports.verifyRecipeOwner = async (req, res, next) => {
@@ -116,35 +120,36 @@ exports.verifyRecipeOwner = async (req, res, next) => {
 
 // Comparar los precios de una receta en diferentes supermercados
 exports.compareRecipePrices = async (req, res) => {
-  try {
-    // Obtener la receta
-    const recipe = await Recipe.findById(req.params.id);
-    if (!recipe) {
-      return res.status(404).json({ message: 'Recipe not found' });
-    }
-
-    // Crear un objeto para guardar el costo total de los ingredientes en cada supermercado
-    const supermarketCosts = {};
-
-    // Calcular el costo total de los ingredientes en cada supermercado
-    recipe.ingredients.forEach(ingredient => {
-      ingredient.prices.forEach(priceInfo => {
-        if (!supermarketCosts[priceInfo.supermarket]) {
-          supermarketCosts[priceInfo.supermarket] = 0;
-        }
-        supermarketCosts[priceInfo.supermarket] += priceInfo.price;
+    try {
+      // Obtener la receta
+      const recipe = await Recipe.findById(req.params.id);
+      if (!recipe) {
+        return res.status(404).json({ message: 'Recipe not found' });
+      }
+  
+      // Crear un objeto para guardar el costo total de los ingredientes en cada supermercado
+      const supermarketCosts = {};
+  
+      // Calcular el costo total de los ingredientes en cada supermercado
+      recipe.ingredients.forEach(ingredient => {
+        ingredient.prices.forEach(priceInfo => {
+          if (!supermarketCosts[priceInfo.supermarket]) {
+            supermarketCosts[priceInfo.supermarket] = 0;
+          }
+          // Considera la cantidad del ingrediente
+          supermarketCosts[priceInfo.supermarket] += priceInfo.price * ingredient.amount;
+        });
       });
-    });
-
-    // Convertir el objeto de costos en un array y ordenarlo por costo
-    const sortedCosts = Object.keys(supermarketCosts).map(supermarket => ({
-      supermarket,
-      cost: supermarketCosts[supermarket]
-    })).sort((a, b) => a.cost - b.cost);
-
-    res.status(200).json(sortedCosts);
-
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+  
+      // Convertir el objeto de costos en un array y ordenarlo por costo
+      const sortedCosts = Object.keys(supermarketCosts).map(supermarket => ({
+        supermarket,
+        cost: supermarketCosts[supermarket]
+      })).sort((a, b) => a.cost - b.cost);
+  
+      res.status(200).json(sortedCosts);
+  
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
