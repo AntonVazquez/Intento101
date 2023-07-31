@@ -107,8 +107,13 @@ exports.verifyMenuOwner = async (req, res, next) => {
 exports.compareMenuPrices = async (req, res) => {
   try {
     // Busca el menú por su ID y llena el campo 'recipes' con los datos completos de las recetas
-    const menu = await Menu.findById(req.params.id).populate('recipes');
-    
+    const menu = await Menu.findById(req.params.id).populate({
+      path: 'recipes',
+      populate: {
+        path: 'ingredients.ingredient'
+      }
+    });
+
     if (!menu) {
       return res.status(404).json({ message: 'Menu not found' });
     }
@@ -119,15 +124,19 @@ exports.compareMenuPrices = async (req, res) => {
     // Para cada receta en el menú...
     for (let recipe of menu.recipes) {
       // ...y para cada ingrediente en la receta...
-      for (let ingredient of recipe.ingredients) {
+      for (let recipeIngredient of recipe.ingredients) {
+        const ingredient = recipeIngredient.ingredient;
+        const requiredQuantity = recipeIngredient.quantity;
+
         // ...y para cada supermercado en los precios del ingrediente...
-        for (let supermarket in ingredient.prices) {
+        for (let supermarket of ingredient.supermarkets) {
           // ...si el supermercado no está ya en el objeto 'supermarkets', añádelo con un precio inicial de 0
-          if (!(supermarket in supermarkets)) {
-            supermarkets[supermarket] = 0;
+          if (!(supermarket.name in supermarkets)) {
+            supermarkets[supermarket.name] = 0;
           }
-          // Suma el precio del ingrediente en ese supermercado al total del supermercado
-          supermarkets[supermarket] += ingredient.prices[supermarket];
+          // Calcular el costo en este supermercado
+          const totalCost = Math.ceil(requiredQuantity / supermarket.quantity) * supermarket.price;
+          supermarkets[supermarket.name] += totalCost;
         }
       }
     }
@@ -143,4 +152,5 @@ exports.compareMenuPrices = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 

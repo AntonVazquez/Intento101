@@ -37,7 +37,8 @@ exports.unsaveRecipe = async (req, res) => {
 exports.getAllRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find();
-    res.status(200).json(recipes);
+    // Renderiza la vista 'recipes' y pasa las recetas a la vista
+    res.render('recipes', { recipes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -57,17 +58,42 @@ exports.getRecipe = async (req, res) => {
   }
 };
 
+// Renderiza la vista para crear recetas
+exports.showCreateRecipeForm = (req, res) => {
+  res.render('CreateRecipe', { 
+    messages: req.flash() // Asegurándonos de que los mensajes flash estén disponibles en la vista
+  });
+};
+
+
+
 // Crear una nueva receta
 exports.createRecipe = async (req, res) => {
   try {
-    const recipe = new Recipe(req.body);
-    recipe.owner = req.user._id;
+    // Parse the ingredients from JSON
+    const ingredients = JSON.parse(req.body.ingredients);
+
+    const recipe = new Recipe({
+      title: req.body.title,
+      description: req.body.description,
+      instructions: req.body.instructions,
+      difficulty: req.body.difficulty,
+      preparationTime: req.body.preparationTime,
+      typeOfFood: req.body.typeOfFood,
+      // Save the image file path instead of the file itself
+      // You might want to adjust this to your needs
+      image: '/path/to/images/' + req.file.filename,
+      ingredients: ingredients
+    });
+    recipe.author = req.user._id;  // Aquí cambiamos owner a author
     await recipe.save();
     res.status(201).json(recipe);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 // Actualizar una receta específica
 exports.updateRecipe = async (req, res) => {
@@ -120,36 +146,45 @@ exports.verifyRecipeOwner = async (req, res, next) => {
 
 // Comparar los precios de una receta en diferentes supermercados
 exports.compareRecipePrices = async (req, res) => {
-    try {
-      // Obtener la receta
-      const recipe = await Recipe.findById(req.params.id);
-      if (!recipe) {
-        return res.status(404).json({ message: 'Recipe not found' });
-      }
-  
-      // Crear un objeto para guardar el costo total de los ingredientes en cada supermercado
-      const supermarketCosts = {};
-  
-      // Calcular el costo total de los ingredientes en cada supermercado
-      recipe.ingredients.forEach(ingredient => {
-        ingredient.prices.forEach(priceInfo => {
-          if (!supermarketCosts[priceInfo.supermarket]) {
-            supermarketCosts[priceInfo.supermarket] = 0;
-          }
-          // Considera la cantidad del ingrediente
-          supermarketCosts[priceInfo.supermarket] += priceInfo.price * ingredient.amount;
-        });
-      });
-  
-      // Convertir el objeto de costos en un array y ordenarlo por costo
-      const sortedCosts = Object.keys(supermarketCosts).map(supermarket => ({
-        supermarket,
-        cost: supermarketCosts[supermarket]
-      })).sort((a, b) => a.cost - b.cost);
-  
-      res.status(200).json(sortedCosts);
-  
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    // Obtener la receta
+    const recipe = await Recipe.findById(req.params.id).populate('ingredients.ingredient');
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
     }
-  };
+
+    // Crear un objeto para guardar el costo total de los ingredientes en cada supermercado
+    const supermarketCosts = {};
+
+    // Calcular el costo total de los ingredientes en cada supermercado
+    for (let recipeIngredient of recipe.ingredients) {
+      const ingredient = recipeIngredient.ingredient;
+      const requiredQuantity = recipeIngredient.amount;
+
+      for (let supermarket of ingredient.supermarkets) {
+        // Comprobar si este supermercado ya ha sido añadido al objeto de costos
+        if (!supermarketCosts[supermarket.name]) {
+          supermarketCosts[supermarket.name] = 0;
+        }
+
+        // Calcular el costo en este supermercado
+        const totalPackages = Math.ceil(requiredQuantity / supermarket.quantity);
+        const totalCost = totalPackages * supermarket.price;
+        supermarketCosts[supermarket.name] += totalCost;
+      }
+    }
+
+    // Convertir el objeto de costos en un array y ordenarlo por costo
+    const sortedCosts = Object.keys(supermarketCosts).map(supermarket => ({
+      supermarket,
+      cost: supermarketCosts[supermarket]
+    })).sort((a, b) => a.cost - b.cost);
+
+    res.status(200).json(sortedCosts);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+

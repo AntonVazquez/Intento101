@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const recipeController = require('../controllers/recipeController');
 
+// Mostrar el formulario para crear una nueva receta
+router.get('/crear', recipeController.ensureAuthenticated, recipeController.showCreateRecipeForm);
+
 // Mostrar todas las recetas
 router.get('/', recipeController.getAllRecipes);
 
@@ -28,6 +31,5 @@ router.post('/:id/unsave', recipeController.ensureAuthenticated, recipeControlle
 
 // Comparar los precios de una receta en diferentes supermercados
 router.get('/:id/comparePrices', recipeController.compareRecipePrices);
-
 
 module.exports = router;

@@ -10,23 +10,15 @@ const RecipeSchema = new mongoose.Schema({
   },
   ingredients: [
     {
-      name: {
-        type: String,
+      ingredient: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredient',
         required: true
       },
       amount: {
-        type: String
-      },
-      prices: [
-        {
-          supermarket: {
-            type: String
-          },
-          price: {
-            type: Number
-          }
-        }
-      ]
+        type: Number,
+        required: true
+      }
     }
   ],
   instructions: {

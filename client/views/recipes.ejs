@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('partials/Head.ejs') %>
+</head>
+<body>
+  <%- include('partials/Navbar.ejs') %>
+
+  <div class="container">
+    <% if (recipes.length > 0) { %>
+      <% recipes.forEach(recipe => { %>
+        <div class="card mt-4">
+          <div class="card-header">
+            <h2><%= recipe.title %></h2>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Tipo de comida: <%= recipe.typeOfFood %></h5>
+            <p class="card-text">Dificultad: <%= recipe.difficulty %></p>
+            <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
+            <p class="card-text">Ingredientes: <%= recipe.ingredients.map(ingredient => ingredient.name).join(', ') %></p>
+            <p class="card-text">Pasos:</p>
+            <ol>
+              <% recipe.steps.forEach(step => { %>
+                <li><%= step %></li>
+              <% }) %>
+            </ol>
+            <a href="/recipes/<%= recipe._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="alert alert-info" role="alert">
+        No hay recetas disponibles en la base de datos.
+      </div>
+    <% } %>
+
+    <div class="d-flex justify-content-end">
+      <a href="/recipes/Crear" class="btn btn-success mt-3">Crear Receta</a>
+    </div>
+
+    <%- include('partials/Footer.ejs') %>
+  </div>
+</body>
+</html>

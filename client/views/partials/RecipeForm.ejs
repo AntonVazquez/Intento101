@@ -1,44 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/recipeForm.css"> 
+</head>
+<body>
+
 <form action="/recipes" method="POST" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="recipeName">Nombre de la Receta</label>
-        <input type="text" class="form-control" id="recipeName" name="recipeName" placeholder="Introduce el nombre de la receta" required>
+        <label for="title">Nombre de la Receta</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Introduce el nombre de la receta" required>
     </div>
 
     <div class="form-group">
-        <label for="recipeDescription">Descripción</label>
-        <textarea class="form-control" id="recipeDescription" name="recipeDescription" rows="3" placeholder="Describe la receta" required></textarea>
+        <label for="description">Descripción</label>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Describe la receta"></textarea>
     </div>
 
     <div class="form-group">
-        <label for="recipeIngredients">Ingredientes</label>
-        <div id="recipeIngredients">
-            <div class="ingredient-group">
-                <input type="text" class="form-control ingredient-name" name="ingredientName[]" placeholder="Nombre del ingrediente" required>
-                <input type="number" class="form-control ingredient-quantity" name="ingredientQuantity[]" placeholder="Cantidad" required>
-                <select class="form-control ingredient-unit" name="ingredientUnit[]" required>
-                    <option value="">Unidad</option>
-                    <option value="gramos">Gramos</option>
-                    <option value="mililitros">Mililitros</option>
-                    <!-- Más opciones según las unidades de tu aplicación -->
-                </select>
-            </div>
-        </div>
-        <button type="button" id="addIngredient">Añadir ingrediente</button>
+        <label for="ingredientInput">Ingrediente</label>
+        <input type="text" id="ingredientInput" oninput="fetchIngredients()" placeholder="Ingresa el nombre del ingrediente">
+        <div id="ingredientList"></div>
+    </div>
+    
+    <!-- Añadido una lista desordenada para mostrar los ingredientes seleccionados -->
+    <div class="form-group">
+        <label for="selectedIngredients">Ingredientes Seleccionados</label>
+        <ul id="selectedIngredients"></ul>
+    </div>
+    
+    
+
+    
+
+    <div class="form-group">
+        <label for="instructions">Instrucciones</label>
+        <textarea class="form-control" id="instructions" name="instructions" rows="5" placeholder="Introduce las instrucciones de la receta" required></textarea>
     </div>
 
     <div class="form-group">
-        <label for="recipeInstructions">Instrucciones</label>
-        <textarea class="form-control" id="recipeInstructions" name="recipeInstructions" rows="5" placeholder="Introduce las instrucciones de la receta" required></textarea>
+        <label for="image">Imagen de la Receta</label>
+        <input type="file" class="form-control-file" id="image" name="image">
     </div>
 
     <div class="form-group">
-        <label for="recipeImage">Imagen de la Receta</label>
-        <input type="file" class="form-control-file" id="recipeImage" name="recipeImage">
-    </div>
-
-    <div class="form-group">
-        <label for="recipeCategory">Categoría</label>
-        <select class="form-control" id="recipeCategory" name="recipeCategory" required>
+        <label for="typeOfFood">Categoría</label>
+        <select class="form-control" id="typeOfFood" name="typeOfFood" required>
             <option selected>Elige una categoría...</option>
             <option value="Desayuno">Desayuno</option>
             <option value="Almuerzo">Almuerzo</option>
@@ -47,54 +53,19 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <label for="difficulty">Dificultad</label>
+        <input type="text" class="form-control" id="difficulty" name="difficulty" placeholder="Dificultad de la receta" required>
+    </div>
+
+    <div class="form-group">
+        <label for="preparationTime">Tiempo de Preparación (minutos)</label>
+        <input type="number" class="form-control" id="preparationTime" name="preparationTime" placeholder="Tiempo de preparación en minutos" required>
+    </div>
+
     <button type="submit" class="btn btn-primary">Guardar Receta</button>
 </form>
 
-<!-- Aquí añadirías tu JavaScript para manejar la adición de nuevos ingredientes -->
-<script>
-    document.getElementById('addIngredient').addEventListener('click', function() {
-        var ingredientGroup = document.createElement('div');
-        ingredientGroup.classList.add('ingredient-group');
-
-        var nameInput = document.createElement('input');
-        nameInput.classList.add('form-control', 'ingredient-name');
-        nameInput.type = 'text';
-        nameInput.name = 'ingredientName[]';
-        nameInput.placeholder = 'Nombre del ingrediente';
-        nameInput.required = true;
-
-        var quantityInput = document.createElement('input');
-        quantityInput.classList.add('form-control', 'ingredient-quantity');
-        quantityInput.type = 'number';
-        quantityInput.name = 'ingredientQuantity[]';
-        quantityInput.placeholder = 'Cantidad';
-        quantityInput.required = true;
-
-        var unitSelect = document.createElement('select');
-        unitSelect.classList.add('form-control', 'ingredient-unit');
-        unitSelect.name = 'ingredientUnit[]';
-        unitSelect.required = true;
-
-        var defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = 'Unidad';
-        unitSelect.appendChild(defaultOption);
-
-        var option1 = document.createElement('option');
-        option1.value = 'gramos';
-        option1.textContent = 'Gramos';
-        unitSelect.appendChild(option1);
-
-        var option2 = document.createElement('option');
-        option2.value = 'mililitros';
-        option2.textContent = 'Mililitros';
-        unitSelect.appendChild(option2);
-
-        ingredientGroup.appendChild(nameInput);
-        ingredientGroup.appendChild(quantityInput);
-        ingredientGroup.appendChild(unitSelect);
-
-        document.getElementById('recipeIngredients').appendChild(ingredientGroup);
-    });
-</script>
-
+<script src="/js/recipeForm.js"></script>
+</body>
+</html>
