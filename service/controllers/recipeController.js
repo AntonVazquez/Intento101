@@ -35,17 +35,28 @@ exports.unsaveRecipe = async (req, res) => {
     }
   };
 
-
-// Mostrar todas las recetas
-exports.getAllRecipes = async (req, res) => {
+// Función para obtener todas las recetas
+exports.getAllRecipes = async () => {
   try {
     const recipes = await Recipe.find();
-    // Renderiza la vista 'recipes' y pasa las recetas a la vista
+    return recipes;
+  } catch (error) {
+    console.error(error);
+    return []; 
+  }
+};
+
+// Función para renderizar la vista
+exports.renderRecipes = async (req, res) => {
+  try {
+    const recipes = await exports.getAllRecipes();
     res.render('recipes', { recipes });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 
 // Mostrar una receta específica
@@ -95,14 +106,16 @@ exports.createRecipe = async (req, res) => {
       difficulty: req.body.difficulty,
       preparationTime: req.body.preparationTime,
       typeOfFood: req.body.typeOfFood,
-      // Save the image file path instead of the file itself
-      // You might want to adjust this to your needs
       image: '/path/to/images/' + req.file.filename,
-      ingredients: ingredients
+      ingredients: ingredients,
+      author: req.user._id
     });
-    recipe.author = req.user._id;
+
     await recipe.save();
-    res.status(201).json(recipe);
+
+    // Send a JSON response instead of redirect
+    res.status(201).json({ message: 'Recipe created', id: recipe._id });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

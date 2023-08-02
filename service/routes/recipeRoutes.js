@@ -5,8 +5,8 @@ const recipeController = require('../controllers/recipeController');
 // Mostrar el formulario para crear una nueva receta
 router.get('/crear', recipeController.ensureAuthenticated, recipeController.showCreateRecipeForm);
 
-// Mostrar todas las recetas
-router.get('/', recipeController.getAllRecipes);
+// Mostrar pagina todas las recetas
+router.get('/', recipeController.renderRecipes);
 
 // Mostrar una receta específica
 router.get('/:id', recipeController.getRecipe);

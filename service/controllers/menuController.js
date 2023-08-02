@@ -28,16 +28,34 @@ exports.unsaveMenu = async (req, res) => {
   }
 };
 
-// Mostrar todos los menús
+
+// Función para obtener todos los menús
 exports.getAllMenus = async () => {
   try {
     const menus = await Menu.find();
     return menus;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 };
+
+// Función para renderizar la vista
+exports.renderMenus = async (req, res) => {
+  try {
+    const menus = await exports.getAllMenus();
+    res.render('menus', { menus }); // Asegúrate de que 'menus' es la vista correcta
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.showCreateMenuForm = (req, res) => {
+  res.render('CreateMenu', { 
+    messages: req.flash() // Asegurándonos de que los mensajes flash estén disponibles en la vista
+  });
+};
+
 
 // Mostrar un menú específico
 exports.getMenu = async (req, res) => {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('partials/Head.ejs') %>
+</head>
+<body>
+  <%- include('partials/Navbar.ejs') %>
+
+  <div class="container">
+    <% if (menus.length > 0) { %>
+      <% menus.forEach(menu => { %>
+        <div class="card mt-4">
+          <div class="card-header">
+            <h2><%= menu.name %></h2>
+            <small>Creado por <%= menu.user.username %></small>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Objetivo: <%= menu.goal %></h5>
+            <p class="card-text">Duración: <%= menu.days %> días</p>
+            <p class="card-text">Descripción: <%= menu.description %></p>
+            <h5>Recetas:</h5>
+            <ul>
+              <% menu.recipes.forEach(function(recipe) { %>
+                <li><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></li>
+              <% }); %>
+            </ul>
+            <a href="/menus/<%= menu._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="alert alert-info" role="alert">
+        No hay menús disponibles en la base de datos.
+      </div>
+    <% } %>
+
+    <div class="d-flex justify-content-end">
+      <a href="/menus/crear" class="btn btn-success mt-3">Crear Menú</a> <!-- Asegúrate de que esta ruta es correcta -->
+    </div>
+
+    <%- include('partials/Footer.ejs') %>
+  </div>
+</body>
+</html>
