@@ -12,7 +12,7 @@ router.get('/', recipeController.getAllRecipes);
 router.get('/:id', recipeController.getRecipe);
 
 // Crear una nueva receta
-router.post('/', recipeController.ensureAuthenticated, recipeController.createRecipe);
+router.post('/crearp', recipeController.ensureAuthenticated, recipeController.createRecipe);
 
 // Actualizar una receta específica
 router.put('/:id', recipeController.ensureAuthenticated, recipeController.verifyRecipeOwner, recipeController.updateRecipe);

@@ -66,7 +66,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     let image = document.querySelector('#image').files[0];
     let ingredients = [...document.querySelectorAll('#selectedIngredients li')].map(li => {
       return {
-        ingredient: li.firstChild.textContent,
+        ingredient: li.getAttribute('data-id'), // Cambiar li.firstChild.textContent por li.getAttribute('data-id')
         amount: li.querySelector('input').value
       };
     });
@@ -83,7 +83,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
     formData.append('ingredients', JSON.stringify(ingredients));
 
     // Luego, hacemos una solicitud POST a tu endpoint de creación de recetas
-    fetch('/recipes', {
+    fetch('/recipes/crearp', {
       method: 'POST',
       body: formData
     }).then(response => response.json())
@@ -101,4 +101,5 @@ document.querySelector('form').addEventListener('submit', function(e) {
         console.error('Error:', error);
       });
 });
+
 

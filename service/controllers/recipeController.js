@@ -1,4 +1,7 @@
 const Recipe = require('../models/recipe');
+const User = require('../models/user');
+const Ingredient = require('../models/ingredient');
+
 
 // Autenticación de usuario
 exports.ensureAuthenticated = (req, res, next) => {
@@ -71,7 +74,19 @@ exports.showCreateRecipeForm = (req, res) => {
 exports.createRecipe = async (req, res) => {
   try {
     // Parse the ingredients from JSON
-    const ingredients = JSON.parse(req.body.ingredients);
+    const ingredientData = JSON.parse(req.body.ingredients);
+
+    // Fetch the ingredient IDs
+    const ingredients = await Promise.all(ingredientData.map(async ({ ingredient, amount }) => {
+      // Search for the ingredient by name
+      const ingredientDoc = await Ingredient.findOne({ name: ingredient });
+
+      // If the ingredient doesn't exist, throw an error
+      if (!ingredientDoc) throw new Error(`Ingredient not found: ${ingredient}`);
+
+      // Return the ingredient ID and amount
+      return { ingredient: ingredientDoc._id, amount };
+    }));
 
     const recipe = new Recipe({
       title: req.body.title,
@@ -85,13 +100,14 @@ exports.createRecipe = async (req, res) => {
       image: '/path/to/images/' + req.file.filename,
       ingredients: ingredients
     });
-    recipe.author = req.user._id;  // Aquí cambiamos owner a author
+    recipe.author = req.user._id;
     await recipe.save();
     res.status(201).json(recipe);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 
