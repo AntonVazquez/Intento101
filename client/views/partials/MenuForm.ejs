@@ -1,29 +1,32 @@
+<!-- MenuForm.ejs -->
+
+<link rel="stylesheet" href="/css/menuForm.css">
+
 <form action="/menus" method="POST">
     <div class="form-group">
         <label for="menuName">Nombre del Menú</label>
-        <input type="text" class="form-control" id="menuName" name="menuName" placeholder="Introduce el nombre del menú" required>
+        <input type="text" class="form-control" id="menuName" name="name" placeholder="Introduce el nombre del menú" required>
     </div>
 
     <div class="form-group">
-        <label for="menuDescription">Descripción</label>
-        <textarea class="form-control" id="menuDescription" name="menuDescription" rows="3" placeholder="Describe el menú" required></textarea>
+        <label for="menuDays">Duración del Menú (días)</label>
+        <input type="number" class="form-control" id="menuDays" name="days" placeholder="Introduce el número de días" required>
     </div>
 
     <div class="form-group">
-        <label for="menuType">Tipo de Menú</label>
-        <select class="form-control" id="menuType" name="menuType" required>
-            <option selected>Elige un tipo...</option>
-            <option value="Perder Peso">Perder Peso</option>
-            <option value="Ganar Masa Muscular">Ganar Masa Muscular</option>
-            <option value="Mantener Peso">Mantener Peso</option>
-            <!-- Más opciones según los tipos de menús de tu aplicación -->
-        </select>
+        <label for="menuGoal">Objetivo del Menú</label>
+        <input type="text" class="form-control" id="menuGoal" name="goal" placeholder="Introduce el objetivo del menú" required>
     </div>
+
+    
 
     <div class="form-group">
         <label for="menuRecipes">Recetas</label>
         <div id="menuRecipes">
-            <input type="text" class="form-control" id="menuRecipes" name="menuRecipes[]" placeholder="ID de la receta" required>
+            <div class="recipe-input-group">
+                <input type="text" class="form-control" name="menuRecipes[]" placeholder="Título de la receta" required>
+                <button type="button" class="remove-recipe">Eliminar receta</button>
+            </div>
         </div>
         <button type="button" id="addRecipe">Añadir receta</button>
     </div>
@@ -31,17 +34,4 @@
     <button type="submit" class="btn btn-primary">Guardar Menú</button>
 </form>
 
-<!-- Aquí añadirías tu JavaScript para manejar la adición de nuevas recetas -->
-<script>
-    document.getElementById('addRecipe').addEventListener('click', function() {
-        var input = document.createElement('input');
-        input.classList.add('form-control');
-        input.type = 'text';
-        input.name = 'menuRecipes[]';
-        input.placeholder = 'ID de la receta';
-        input.required = true;
-
-        document.getElementById('menuRecipes').appendChild(input);
-    });
-</script>
-
+<script src="/js/menuForm.js"></script>

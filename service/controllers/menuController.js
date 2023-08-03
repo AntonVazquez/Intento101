@@ -73,10 +73,21 @@ exports.getMenu = async (req, res) => {
 // Crear un nuevo menú
 exports.createMenu = async (req, res) => {
   try {
-    const menu = new Menu(req.body);
-    menu.owner = req.user._id;
-    await menu.save();
-    res.status(201).json(menu);
+    const { name, goal, days, menuRecipes } = req.body;
+    const user = req.user._id; // Este es el id del usuario autenticado actualmente, que puedes obtener de la sesión
+    const recipes = await Recipe.find({ title: { $in: menuRecipes } });
+
+    const newMenu = new Menu({
+      name,
+      goal,
+      days,
+      user,
+      recipes
+    });
+
+    await newMenu.save();
+
+    res.status(200).json({ message: 'Menu created' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
