@@ -1,6 +1,10 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const recipeController = require('../controllers/recipeController');
+
+// Middleware para manejar datos multipart/form-data
+const upload = multer();
 
 // Mostrar el formulario para crear una nueva receta
 router.get('/crear', recipeController.ensureAuthenticated, recipeController.showCreateRecipeForm);
@@ -11,8 +15,8 @@ router.get('/', recipeController.renderRecipes);
 // Mostrar una receta específica
 router.get('/:id', recipeController.getRecipe);
 
-// Crear una nueva receta
-router.post('/crearp', recipeController.ensureAuthenticated, recipeController.createRecipe);
+// Crear una nueva receta (ahora con middleware de multer)
+router.post('/crear', upload.none(), recipeController.ensureAuthenticated, recipeController.createRecipe);
 
 // Actualizar una receta específica
 router.put('/:id', recipeController.ensureAuthenticated, recipeController.verifyRecipeOwner, recipeController.updateRecipe);

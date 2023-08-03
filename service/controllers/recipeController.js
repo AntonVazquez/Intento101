@@ -82,45 +82,14 @@ exports.showCreateRecipeForm = (req, res) => {
 
 
 // Crear una nueva receta
-exports.createRecipe = async (req, res) => {
-  try {
-    // Parse the ingredients from JSON
-    const ingredientData = JSON.parse(req.body.ingredients);
+exports.createRecipe = (req, res, next) => {
+  const recipeData = req.body;
+  recipeData.author = req.user._id;  // Aquí se establece el campo autor
 
-    // Fetch the ingredient IDs
-    const ingredients = await Promise.all(ingredientData.map(async ({ ingredient, amount }) => {
-      // Search for the ingredient by name
-      const ingredientDoc = await Ingredient.findOne({ name: ingredient });
-
-      // If the ingredient doesn't exist, throw an error
-      if (!ingredientDoc) throw new Error(`Ingredient not found: ${ingredient}`);
-
-      // Return the ingredient ID and amount
-      return { ingredient: ingredientDoc._id, amount };
-    }));
-
-    const recipe = new Recipe({
-      title: req.body.title,
-      description: req.body.description,
-      instructions: req.body.instructions,
-      difficulty: req.body.difficulty,
-      preparationTime: req.body.preparationTime,
-      typeOfFood: req.body.typeOfFood,
-      image: '/path/to/images/' + req.file.filename,
-      ingredients: ingredients,
-      author: req.user._id
-    });
-
-    await recipe.save();
-
-    // Send a JSON response instead of redirect
-    res.status(201).json({ message: 'Recipe created', id: recipe._id });
-
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  Recipe.create(recipeData)
+      .then(recipe => res.status(201).json(recipe))
+      .catch(err => next(err));
 };
-
 
 
 

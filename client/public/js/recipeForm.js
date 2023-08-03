@@ -1,3 +1,4 @@
+// Función para buscar ingredientes
 function fetchIngredients() {
     var input = document.getElementById('ingredientInput');
     var list = document.getElementById('ingredientList');
@@ -10,7 +11,12 @@ function fetchIngredients() {
     // Si el usuario ha introducido al menos 2 caracteres, busca los ingredientes
     if (input.value.length >= 2) {
         fetch('/ingredient/search?name=' + input.value)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(ingredients => {
                 ingredients.forEach(ingredient => {
                     // Crear un nuevo elemento de lista para cada ingrediente
@@ -32,6 +38,7 @@ function fetchIngredients() {
                         quantityInput.setAttribute('type', 'number');
                         quantityInput.setAttribute('placeholder', 'Cantidad');
                         quantityInput.style.marginLeft = '10px';
+                        quantityInput.required = true;  // Asegura que el usuario debe ingresar una cantidad
 
                         // Añade el nombre del ingrediente y el campo de cantidad al elemento de la lista
                         selectedListItem.textContent = ingredient.name;
@@ -47,59 +54,18 @@ function fetchIngredients() {
                     list.style.display = 'block';
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                list.style.display = 'none';
+            });
     } else {
         list.style.display = 'none'; // Ocultar la lista si el usuario ha introducido menos de 2 caracteres
     }
 }
 
-document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Aquí recopilamos todos los valores de los campos del formulario
-    let title = document.querySelector('#title').value;
-    let description = document.querySelector('#description').value;
-    let instructions = document.querySelector('#instructions').value;
-    let difficulty = document.querySelector('#difficulty').value;
-    let preparationTime = document.querySelector('#preparationTime').value;
-    let typeOfFood = document.querySelector('#typeOfFood').value;
-    let image = document.querySelector('#image').files[0];
-    let ingredients = [...document.querySelectorAll('#selectedIngredients li')].map(li => {
-      return {
-        ingredient: li.getAttribute('data-id'), // Cambiar li.firstChild.textContent por li.getAttribute('data-id')
-        amount: li.querySelector('input').value
-      };
-    });
-
-    // Aquí creamos un nuevo objeto FormData y agregamos todos los valores
-    let formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('instructions', instructions);
-    formData.append('difficulty', difficulty);
-    formData.append('preparationTime', preparationTime);
-    formData.append('typeOfFood', typeOfFood);
-    formData.append('image', image);
-    formData.append('ingredients', JSON.stringify(ingredients));
-
-    // Luego, hacemos una solicitud POST a tu endpoint de creación de recetas
-    fetch('/recipes/crearp', {
-      method: 'POST',
-      body: formData
-    }).then(response => response.json())
-      .then(data => {
-        // Aquí está la nueva lógica de redireccionamiento
-        if (data.id) {
-            // Redirigir al usuario a la página de la receta recién creada
-            window.location.href = '/recipes/' + data.id;
-        } else {
-            console.error('No se pudo obtener el ID de la receta del servidor.');
-        }
-      })
-      .catch(error => {
-        // Manejo de errores
-        console.error('Error:', error);
-      });
+// Escuchar el evento submit del formulario
+document.querySelector('form').addEventListener('submit', event => {
+    // Aquí podrías hacer cualquier validación adicional necesaria
+    // Si todo es válido, no necesitas hacer nada más aquí
+    // Si algo no es válido, debes llamar a event.preventDefault() para evitar que se envíe el formulario
 });
-
-
