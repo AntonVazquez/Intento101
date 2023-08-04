@@ -120,14 +120,22 @@ exports.deleteRecipe = async (req, res) => {
 };
 
 // Buscar recetas
-exports.searchRecipes = async (req, res) => {
-    try {
-      const recipes = await Recipe.find({ title: { $regex: req.body.query, $options: 'i' } });
-      res.status(200).json(recipes);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
+exports.searchRecipes = (req, res) => {
+  let title = req.query.title;
+  if (title.length > 20) title = title.substr(0, 20);
+
+  Recipe.find({ title: { $regex: title, $options: 'i' } }) 
+      .limit(10) 
+      .exec()
+      .then(recipes => {
+          return res.status(200).json(recipes);
+      })
+      .catch(err => {
+          console.log(err);
+          return res.status(500).json({ error: 'Error searching for recipes' });
+      });
+};
+
 
 // Verificar el propietario de la receta
 exports.verifyRecipeOwner = async (req, res, next) => {
@@ -146,29 +154,29 @@ exports.verifyRecipeOwner = async (req, res, next) => {
 exports.compareRecipePrices = async (req, res) => {
   try {
     // Obtener la receta
-    const recipe = await Recipe.findById(req.params.id).populate('ingredients.ingredient');
+    const recipe = await Recipe.findById(req.params.id).populate('recipes.ingredient');
     if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
 
-    // Crear un objeto para guardar el costo total de los ingredientes en cada supermercado
+    // Crear un objeto para guardar el costo total de los recetas en cada supermercado
     const supermarketCosts = {};
 
-    // Calcular el costo total de los ingredientes en cada supermercado
-    for (let recipeIngredient of recipe.ingredients) {
+    // Calcular el costo total de los recetas en cada supermercado
+    for (let recipeIngredient of recipe.recipes) {
       const ingredient = recipeIngredient.ingredient;
       const requiredQuantity = recipeIngredient.amount;
 
       for (let supermarket of ingredient.supermarkets) {
         // Comprobar si este supermercado ya ha sido añadido al objeto de costos
-        if (!supermarketCosts[supermarket.name]) {
-          supermarketCosts[supermarket.name] = 0;
+        if (!supermarketCosts[supermarket.title]) {
+          supermarketCosts[supermarket.title] = 0;
         }
 
         // Calcular el costo en este supermercado
         const totalPackages = Math.ceil(requiredQuantity / supermarket.quantity);
         const totalCost = totalPackages * supermarket.price;
-        supermarketCosts[supermarket.name] += totalCost;
+        supermarketCosts[supermarket.title] += totalCost;
       }
     }
 

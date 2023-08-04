@@ -19,6 +19,7 @@
             <p class="card-text">Recetas: <%= menu.recipes.map(recipe => recipe.title).join(', ') %></p>
 
             <a href="/menus/<%= menu._id %>/edit" class="btn btn-primary mt-3">Editar menú</a>
+            <a href="/recipes/<%= menu._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
           </div>
         </div>
       <% }) %>

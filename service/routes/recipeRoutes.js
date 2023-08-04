@@ -6,6 +6,9 @@ const recipeController = require('../controllers/recipeController');
 // Middleware para manejar datos multipart/form-data
 const upload = multer();
 
+// Buscar recetas
+router.get('/search', recipeController.searchRecipes);
+
 // Mostrar el formulario para crear una nueva receta
 router.get('/crear', recipeController.ensureAuthenticated, recipeController.showCreateRecipeForm);
 
@@ -23,9 +26,6 @@ router.put('/:id', recipeController.ensureAuthenticated, recipeController.verify
 
 // Borrar una receta específica
 router.delete('/:id', recipeController.ensureAuthenticated, recipeController.verifyRecipeOwner, recipeController.deleteRecipe);
-
-// Buscar recetas
-router.post('/search', recipeController.searchRecipes);
 
 // Guardar una receta en el perfil del usuario
 router.post('/:id/save', recipeController.ensureAuthenticated, recipeController.saveRecipe);

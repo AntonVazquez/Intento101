@@ -21,15 +21,17 @@
     
 
     <div class="form-group">
-        <label for="menuRecipes">Recetas</label>
-        <div id="menuRecipes">
-            <div class="recipe-input-group">
-                <input type="text" class="form-control" name="menuRecipes[]" placeholder="Título de la receta" required>
-                <button type="button" class="remove-recipe">Eliminar receta</button>
-            </div>
-        </div>
-        <button type="button" id="addRecipe">Añadir receta</button>
+        <label for="recipeInput">Receta</label>
+        <input type="text" id="recipeInput" oninput="fetchRecipes()" placeholder="Ingresa el nombre de la receta">
+        <div id="recipeList"></div>
     </div>
+    
+    <!-- Añadido una lista desordenada para mostrar las recetas seleccionadas -->
+    <div class="form-group">
+        <label for="selectedRecipes">Recetas Seleccionadas</label>
+        <ul id="selectedRecipes"></ul>
+    </div>
+    
 
     <button type="submit" class="btn btn-primary">Guardar Menú</button>
 </form>

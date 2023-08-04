@@ -1,60 +1,96 @@
+/* CSS para el formulario del menú */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
 
 .form-group {
     margin-bottom: 20px;
 }
 
-.form-control {
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea, select, button {
     width: 100%;
     padding: 10px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 1em;
+    border-radius: 3px;
+    border: 1px solid #ddd;
 }
 
-.btn-primary {
+button {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #007bff;
     color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    touch-action: manipulation;
     cursor: pointer;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    border: none;
 }
 
-/* Estilo para los botones de añadir y eliminar recetas */
-#addRecipe, .remove-recipe {
-    margin-top: 10px;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
+button:hover {
+    background-color: #0056b3;
 }
 
-.remove-recipe {
-    background-color: #d9534f;
-    border-color: #d43f3a;
-}
-
-/* Estilo para el grupo de entrada de recetas */
 .recipe-input-group {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f5f5f5;
     display: flex;
-    align-items: flex-start;
     justify-content: space-between;
 }
 
-/* Estilo para las entradas de recetas individuales */
 .recipe-input-group input {
-    flex-grow: 1;
-    margin-right: 10px;
+    width: 70%;  /* Modificado según la necesidad */
+}
+
+.recipe-input-group button {
+    width: auto;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.recipe-input-group button:hover {
+    background-color: #c82333;
+}
+
+#addRecipe {
+    margin-top: 10px;
+    background-color: #28a745;
+}
+
+#addRecipe:hover {
+    background-color: #218838;
+}
+
+/* Estilos para la lista de recetas seleccionadas */
+#selectedRecipes {
+    list-style-type: none;
+    padding: 0;
+}
+
+#selectedRecipes li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+#selectedRecipes li input {
+    width: 30%; /* Ajusta según tus necesidades */
 }
