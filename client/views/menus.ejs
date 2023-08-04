@@ -12,19 +12,13 @@
         <div class="card mt-4">
           <div class="card-header">
             <h2><%= menu.name %></h2>
-            <small>Creado por <%= menu.user.username %></small>
           </div>
           <div class="card-body">
-            <h5 class="card-title">Objetivo: <%= menu.goal %></h5>
-            <p class="card-text">Duración: <%= menu.days %> días</p>
-            <p class="card-text">Descripción: <%= menu.description %></p>
-            <h5>Recetas:</h5>
-            <ul>
-              <% menu.recipes.forEach(function(recipe) { %>
-                <li><a href="/recipes/<%= recipe.id %>"><%= recipe.name %></a></li>
-              <% }); %>
-            </ul>
-            <a href="/menus/<%= menu._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
+            <h5 class="card-title">Días: <%= menu.days %></h5>
+            <p class="card-text">Meta: <%= menu.goal %></p>
+            <p class="card-text">Recetas: <%= menu.recipes.map(recipe => recipe.title).join(', ') %></p>
+
+            <a href="/menus/<%= menu._id %>/edit" class="btn btn-primary mt-3">Editar menú</a>
           </div>
         </div>
       <% }) %>
@@ -35,7 +29,7 @@
     <% } %>
 
     <div class="d-flex justify-content-end">
-      <a href="/menus/crear" class="btn btn-success mt-3">Crear Menú</a> <!-- Asegúrate de que esta ruta es correcta -->
+      <a href="/menus/Crear" class="btn btn-success mt-3">Crear Menú</a>
     </div>
 
     <%- include('partials/Footer.ejs') %>

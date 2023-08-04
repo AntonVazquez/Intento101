@@ -65,6 +65,33 @@ function fetchIngredients() {
 
 // Escuchar el evento submit del formulario
 document.querySelector('form').addEventListener('submit', event => {
+    // Recoger la lista de ingredientes seleccionados
+    var selectedIngredients = document.getElementById('selectedIngredients').children;
+
+    // Para cada ingrediente seleccionado, añadir un campo de entrada oculto al formulario con el nombre y la cantidad del ingrediente
+    for (var i = 0; i < selectedIngredients.length; i++) {
+        var ingredient = selectedIngredients[i];
+        
+        // Recoger el nombre y la cantidad del ingrediente
+        var ingredientId = ingredient.getAttribute('data-id'); // Obtener el ID del ingrediente
+        var ingredientQuantity = ingredient.getElementsByTagName('input')[0].value;
+
+        // Crear campos de entrada ocultos para el nombre y la cantidad
+        var idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'ingredients[' + i + '][ingredient]';
+        idInput.value = ingredientId;
+
+        var quantityInput = document.createElement('input');
+        quantityInput.type = 'hidden';
+        quantityInput.name = 'ingredients[' + i + '][amount]';
+        quantityInput.value = ingredientQuantity;
+
+        // Añadir los campos de entrada ocultos al formulario
+        event.target.appendChild(idInput);
+        event.target.appendChild(quantityInput);
+    }
+
     // Aquí podrías hacer cualquier validación adicional necesaria
     // Si todo es válido, no necesitas hacer nada más aquí
     // Si algo no es válido, debes llamar a event.preventDefault() para evitar que se envíe el formulario

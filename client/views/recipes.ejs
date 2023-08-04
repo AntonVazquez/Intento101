@@ -19,11 +19,7 @@
             <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
             <p class="card-text">Ingredientes: <%= recipe.ingredients.map(ingredient => ingredient.name).join(', ') %></p>
             <p class="card-text">Pasos:</p>
-            <ol>
-              <% recipe.steps.forEach(step => { %>
-                <li><%= step %></li>
-              <% }) %>
-            </ol>
+            
             <a href="/recipes/<%= recipe._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
           </div>
         </div>
