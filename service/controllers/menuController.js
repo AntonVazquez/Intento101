@@ -34,13 +34,15 @@ exports.unsaveMenu = async (req, res) => {
 // Función para obtener todos los menús
 exports.getAllMenus = async () => {
   try {
-    const menus = await Menu.find();
+    // Aquí se está usando populate para incluir los detalles de las recetas
+    const menus = await Menu.find().populate('recipes');
     return menus;
   } catch (error) {
     console.error(error);
     return [];
   }
 };
+
 
 // Función para renderizar la vista
 exports.renderMenus = async (req, res) => {
@@ -121,10 +123,8 @@ exports.verifyMenuOwner = async (req, res, next) => {
   }
 };
 
-// Función para comparar los precios de los ingredientes de un menú en diferentes supermercados
 exports.compareMenuPrices = async (req, res) => {
   try {
-    // Busca el menú por su ID y llena el campo 'recipes' con los datos completos de las recetas
     const menu = await Menu.findById(req.params.id).populate({
       path: 'recipes',
       populate: {
@@ -133,42 +133,52 @@ exports.compareMenuPrices = async (req, res) => {
     });
 
     if (!menu) {
-      return res.status(404).json({ message: 'Menu not found' });
+      return res.status(404).render('ComparaPrices', { items: [] });
     }
 
-    // Crea un objeto para almacenar la suma de los precios de los ingredientes para cada supermercado
-    let supermarkets = {};
-    
-    // Para cada receta en el menú...
+    const items = [];
+    let grandTotal = {};
+
     for (let recipe of menu.recipes) {
-      // ...y para cada ingrediente en la receta...
+      const recipeItem = {
+        name: recipe.title,
+        ingredients: [],
+        total: {}
+      };
+
       for (let recipeIngredient of recipe.ingredients) {
         const ingredient = recipeIngredient.ingredient;
-        const requiredQuantity = recipeIngredient.quantity;
+        const requiredQuantity = recipeIngredient.amount;
+        let supermarkets = {};
 
-        // ...y para cada supermercado en los precios del ingrediente...
         for (let supermarket of ingredient.supermarkets) {
-          // ...si el supermercado no está ya en el objeto 'supermarkets', añádelo con un precio inicial de 0
           if (!(supermarket.name in supermarkets)) {
             supermarkets[supermarket.name] = 0;
           }
-          // Calcular el costo en este supermercado
           const totalCost = Math.ceil(requiredQuantity / supermarket.quantity) * supermarket.price;
           supermarkets[supermarket.name] += totalCost;
+
+          // Agregar al total de la receta
+          recipeItem.total[supermarket.name] = (recipeItem.total[supermarket.name] || 0) + supermarkets[supermarket.name];
+
+          // Agregar al total general
+          grandTotal[supermarket.name] = (grandTotal[supermarket.name] || 0) + supermarkets[supermarket.name];
         }
+
+        recipeItem.ingredients.push({
+          name: ingredient.name,
+          supermarketPrices: Object.keys(supermarkets).map(supermarket => ({
+            supermarket,
+            price: supermarkets[supermarket],
+          })),
+        });
       }
+
+      items.push(recipeItem);
     }
 
-    // Convierte el objeto 'supermarkets' en un array y ordénalo por precio ascendente
-    let sortedSupermarkets = Object.entries(supermarkets).sort((a, b) => a[1] - b[1]);
-
-    // Devuelve el array ordenado de supermercados y precios
-    res.status(200).json(sortedSupermarkets);
-    
+    res.render('ComparePrices', { items, grandTotal });
   } catch (error) {
-    // Si hay un error, devuelve un mensaje de error
     res.status(500).json({ message: error.message });
   }
 };
-
-

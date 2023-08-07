@@ -9,19 +9,7 @@
   <div class="container">
     <% if (menus.length > 0) { %>
       <% menus.forEach(menu => { %>
-        <div class="card mt-4">
-          <div class="card-header">
-            <h2><%= menu.name %></h2>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Días: <%= menu.days %></h5>
-            <p class="card-text">Meta: <%= menu.goal %></p>
-            <p class="card-text">Recetas: <%= menu.recipes.map(recipe => recipe.title).join(', ') %></p>
-
-            <a href="/menus/<%= menu._id %>/edit" class="btn btn-primary mt-3">Editar menú</a>
-            <a href="/recipes/<%= menu._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
-          </div>
-        </div>
+        <%- include('partials/menuCard.ejs', { menu: menu }) %>
       <% }) %>
     <% } else { %>
       <div class="alert alert-info" role="alert">

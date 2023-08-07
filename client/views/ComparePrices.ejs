@@ -3,6 +3,7 @@
 <head>
   <title>Comparar Precios</title>
   <link rel="stylesheet" href="/css/main.css">
+  <!--<link rel="stylesheet" href="/css/comparePrices.css">-->
 </head>
 <body>
   <%- include('partials/Navbar.ejs') %>
@@ -12,11 +13,24 @@
     <h1>Comparar Precios</h1>
     <% if (items && items.length > 0) { %>
       <% items.forEach(function(item) { %>
-        <h2><%= item.name %></h2>
+        <h2><%= item.name %></h2> <!-- Título de la receta -->
         <% item.ingredients.forEach(function(ingredient) { %>
-          <%- include('partials/IngredientPriceRow.ejs', {ingredient: ingredient}) %>
+          <h3><%= ingredient.name %></h3> <!-- Nombre del ingrediente -->
+          <% ingredient.supermarketPrices.forEach(function(price) { %>
+            <div class="supermarket-price">
+              <p><%= price.supermarket %>: $<%= price.price.toFixed(2) %></p>
+            </div>
+          <% }); %>
+        <% }) %>
+        <h3>Total de la receta:</h3>
+        <% Object.keys(item.total).forEach(function(supermarket) { %>
+          <p><%= supermarket %>: $<%= item.total[supermarket].toFixed(2) %></p>
         <% }) %>
         <hr>
+      <% }) %>
+      <h3>Total general:</h3>
+      <% Object.keys(grandTotal).forEach(function(supermarket) { %>
+        <p><%= supermarket %>: $<%= grandTotal[supermarket].toFixed(2) %></p>
       <% }) %>
     <% } else { %>
       <p>No se han encontrado recetas o menús para comparar precios.</p>
@@ -26,4 +40,5 @@
   <%- include('partials/Footer.ejs') %>
 </body>
 </html>
+
 
