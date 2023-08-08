@@ -159,45 +159,46 @@ exports.compareRecipePrices = async (req, res) => {
       return res.status(404).json({ message: 'Recipe not found' });
     }
 
-    // Objeto para guardar el costo total de los ingredientes en cada supermercado
-    const supermarketCosts = {};
+    // Objeto para guardar la lista de la compra
+    let shoppingList = {};
 
-    // Recorrer cada ingrediente y calcular el costo en cada supermercado
+    // Recorrer cada ingrediente y calcular la cantidad y el costo en cada supermercado
     recipe.ingredients.forEach(recipeIngredient => {
       const ingredient = recipeIngredient.ingredient;
       const requiredQuantity = recipeIngredient.amount;
 
       ingredient.supermarkets.forEach(supermarket => {
-        if (!supermarketCosts[supermarket.name]) {
-          supermarketCosts[supermarket.name] = 0;
+        const supermarketName = supermarket.name;
+        const packageQuantity = supermarket.quantity;
+        const packagePrice = supermarket.price;
+        const totalPackages = Math.ceil(requiredQuantity / packageQuantity);
+        const totalCost = totalPackages * packagePrice;
+
+        if (!shoppingList[supermarketName]) {
+          shoppingList[supermarketName] = { ingredients: [], totalCost: 0 };
         }
 
-        const totalCost = Math.ceil(requiredQuantity / supermarket.quantity) * supermarket.price;
-        supermarketCosts[supermarket.name] += totalCost;
+        shoppingList[supermarketName].ingredients.push({
+          ingredient: ingredient.name,
+          packages: totalPackages,
+          cost: totalCost,
+        });
+
+        shoppingList[supermarketName].totalCost += totalCost;
       });
     });
 
     // Preparar los datos en el formato esperado por la vista
     const items = [
       {
-        name: recipe.title,
-        ingredients: recipe.ingredients.map(ingredient => ({
-          name: ingredient.ingredient.name,
-          supermarketPrices: ingredient.ingredient.supermarkets.map(supermarket => ({
-            supermarket: supermarket.name,
-            price: Math.ceil(ingredient.amount / supermarket.quantity) * supermarket.price,
-          })),
-        })),
-        total: supermarketCosts,
+        title: recipe.title,
+        ingredients: recipe.ingredients.map(ingredient => ingredient.ingredient),
       },
     ];
 
     // Renderizar la vista con los datos
-    res.render('ComparePrices', { items, grandTotal: supermarketCosts });
+    res.render('ComparePrices', { items, shoppingList });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
-
-

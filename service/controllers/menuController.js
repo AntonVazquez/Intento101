@@ -123,6 +123,7 @@ exports.verifyMenuOwner = async (req, res, next) => {
   }
 };
 
+//Funcion para comparar menus y mostrar lista de la compra
 exports.compareMenuPrices = async (req, res) => {
   try {
     const menu = await Menu.findById(req.params.id).populate({
@@ -133,52 +134,59 @@ exports.compareMenuPrices = async (req, res) => {
     });
 
     if (!menu) {
-      return res.status(404).render('ComparaPrices', { items: [] });
+      return res.status(404).json({ message: 'Menu not found' });
     }
 
-    const items = [];
-    let grandTotal = {};
+    let totalIngredients = {};
 
     for (let recipe of menu.recipes) {
-      const recipeItem = {
-        name: recipe.title,
-        ingredients: [],
-        total: {}
-      };
-
       for (let recipeIngredient of recipe.ingredients) {
-        const ingredient = recipeIngredient.ingredient;
+        const ingredientName = recipeIngredient.ingredient.name;
         const requiredQuantity = recipeIngredient.amount;
-        let supermarkets = {};
-
-        for (let supermarket of ingredient.supermarkets) {
-          if (!(supermarket.name in supermarkets)) {
-            supermarkets[supermarket.name] = 0;
-          }
-          const totalCost = Math.ceil(requiredQuantity / supermarket.quantity) * supermarket.price;
-          supermarkets[supermarket.name] += totalCost;
-
-          // Agregar al total de la receta
-          recipeItem.total[supermarket.name] = (recipeItem.total[supermarket.name] || 0) + supermarkets[supermarket.name];
-
-          // Agregar al total general
-          grandTotal[supermarket.name] = (grandTotal[supermarket.name] || 0) + supermarkets[supermarket.name];
+        if (!totalIngredients[ingredientName]) {
+          totalIngredients[ingredientName] = { requiredQuantity: 0, supermarkets: recipeIngredient.ingredient.supermarkets };
         }
-
-        recipeItem.ingredients.push({
-          name: ingredient.name,
-          supermarketPrices: Object.keys(supermarkets).map(supermarket => ({
-            supermarket,
-            price: supermarkets[supermarket],
-          })),
-        });
+        totalIngredients[ingredientName].requiredQuantity += requiredQuantity;
       }
-
-      items.push(recipeItem);
     }
 
-    res.render('ComparePrices', { items, grandTotal });
+    let shoppingList = {};
+
+    for (let ingredient in totalIngredients) {
+      const requiredQuantity = totalIngredients[ingredient].requiredQuantity;
+      const supermarkets = totalIngredients[ingredient].supermarkets;
+
+      for (let supermarket of supermarkets) {
+        const supermarketName = supermarket.name;
+        const packageQuantity = supermarket.quantity;
+        const packagePrice = supermarket.price;
+
+        const totalPackages = Math.ceil(requiredQuantity / packageQuantity);
+        const totalCost = totalPackages * packagePrice;
+
+        if (!shoppingList[supermarketName]) {
+          shoppingList[supermarketName] = { ingredients: [], totalCost: 0 };
+        }
+
+        shoppingList[supermarketName].ingredients.push({
+          ingredient: ingredient,
+          packages: totalPackages,
+          cost: totalCost
+        });
+
+        shoppingList[supermarketName].totalCost += totalCost;
+      }
+    }
+
+    const items = menu.recipes.map(recipe => ({
+      title: recipe.title, // Usamos 'title' en lugar de 'name'
+      ingredients: recipe.ingredients.map(ing => ing.ingredient)
+    }));
+    
+
+    res.render('ComparePrices', { items, shoppingList });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
