@@ -138,8 +138,12 @@ exports.compareMenuPrices = async (req, res) => {
     }
 
     let totalIngredients = {};
+    let recipeCounts = {};
 
     for (let recipe of menu.recipes) {
+      const recipeTitle = recipe.title;
+      recipeCounts[recipeTitle] = (recipeCounts[recipeTitle] || 0) + 1;
+
       for (let recipeIngredient of recipe.ingredients) {
         const ingredientName = recipeIngredient.ingredient.name;
         const requiredQuantity = recipeIngredient.amount;
@@ -171,22 +175,25 @@ exports.compareMenuPrices = async (req, res) => {
         shoppingList[supermarketName].ingredients.push({
           ingredient: ingredient,
           packages: totalPackages,
-          cost: totalCost
+          cost: totalCost,
+          requiredQuantity: requiredQuantity, // Cantidad necesaria
+          packageQuantity: packageQuantity // Cantidad en paquete
         });
 
         shoppingList[supermarketName].totalCost += totalCost;
       }
     }
 
-    const items = menu.recipes.map(recipe => ({
-      title: recipe.title, // Usamos 'title' en lugar de 'name'
-      ingredients: recipe.ingredients.map(ing => ing.ingredient)
+    const items = Object.keys(recipeCounts).map(title => ({
+      title: title,
+      count: recipeCounts[title],
+      ingredients: menu.recipes.find(r => r.title === title).ingredients.map(ing => ing.ingredient)
     }));
-    
 
     res.render('ComparePrices', { items, shoppingList });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 

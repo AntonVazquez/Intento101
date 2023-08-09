@@ -164,10 +164,10 @@ exports.compareRecipePrices = async (req, res) => {
 
     // Recorrer cada ingrediente y calcular la cantidad y el costo en cada supermercado
     recipe.ingredients.forEach(recipeIngredient => {
-      const ingredient = recipeIngredient.ingredient;
+      const ingredientName = recipeIngredient.ingredient.name;
       const requiredQuantity = recipeIngredient.amount;
 
-      ingredient.supermarkets.forEach(supermarket => {
+      recipeIngredient.ingredient.supermarkets.forEach(supermarket => {
         const supermarketName = supermarket.name;
         const packageQuantity = supermarket.quantity;
         const packagePrice = supermarket.price;
@@ -179,9 +179,11 @@ exports.compareRecipePrices = async (req, res) => {
         }
 
         shoppingList[supermarketName].ingredients.push({
-          ingredient: ingredient.name,
+          ingredient: ingredientName,
           packages: totalPackages,
           cost: totalCost,
+          requiredQuantity: requiredQuantity,
+          packageQuantity: packageQuantity,
         });
 
         shoppingList[supermarketName].totalCost += totalCost;

@@ -27,6 +27,6 @@ router.post('/:id/save', menuController.ensureAuthenticated, menuController.save
 router.post('/:id/unsave', menuController.ensureAuthenticated, menuController.unsaveMenu);
 
 // Comparar los precios de un menú en diferentes supermercados
-router.get('/:id/comparePrices', menuController.compareMenuPrices);
+router.get('/:id/comparePrices', menuController.ensureAuthenticated, menuController.compareMenuPrices);
 
 module.exports = router;

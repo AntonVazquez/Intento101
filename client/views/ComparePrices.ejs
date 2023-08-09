@@ -13,7 +13,7 @@
 
     <% if (items && items.length > 0) { %>
       <% items.forEach(function(item) { %>
-        <h2><%= item.title %></h2> 
+        <h2><%= item.title %> <% if(item.count > 1) { %> (x<%= item.count %>) <% } %></h2>
         <% item.ingredients.forEach(function(ingredient) { %>
           <h3><%= ingredient.name %></h3>
           <% ingredient.supermarkets.forEach(function(supermarket) { %>
@@ -26,8 +26,11 @@
       <h2>Lista de Compra</h2>
       <% for (let supermarket in shoppingList) { %>
         <h3><%= supermarket %>:</h3>
-        <% shoppingList[supermarket].ingredients.forEach(function(ingredient) { %>
-          <p><%= ingredient.ingredient %>: <%= ingredient.packages %> paquete(s) - $<%= ingredient.cost.toFixed(2) %></p>
+        <% shoppingList[supermarket].ingredients.forEach(function(item) { %>
+          <p>
+            <%= item.ingredient %>: <%= item.packages %> paquete(s) - $<%= item.cost.toFixed(2) %> 
+            (Necesario: <%= item.requiredQuantity %>, Cantidad por paquete: <%= item.packageQuantity %>)
+          </p>
         <% }); %>
         <p>Total en <%= supermarket %>: $<%= shoppingList[supermarket].totalCost.toFixed(2) %></p>
         <hr>
