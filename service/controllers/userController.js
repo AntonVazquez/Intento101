@@ -69,8 +69,32 @@ exports.logout = (req, res, next) => {
 
 // Mostrar perfil del usuario
 exports.showProfile = async (req, res) => {
-  const user = await User.findById(req.user._id);
-  res.render('profile', { user, messages: req.flash() });
+  try {
+    const user = await User.findById(req.user._id)
+      .populate({
+        path: 'savedRecipes',
+        populate: {
+          path: 'ingredients.ingredient',
+          model: 'Ingredient'
+        }
+      })
+      .populate({
+        path: 'savedMenus',
+        populate: {
+          path: 'recipes',
+          model: 'Recipe',
+          populate: { // Para obtener también los ingredientes de cada receta dentro del menú
+            path: 'ingredients.ingredient',
+            model: 'Ingredient'
+          }
+        }
+      });
+
+    res.render('profile', { user, messages: req.flash() });
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('error', { message: error.message });
+  }
 };
 
 // Actualizar perfil del usuario

@@ -13,22 +13,42 @@ exports.ensureAuthenticated = (req, res, next) => {
 // Guardar un menú en el perfil del usuario
 exports.saveMenu = async (req, res) => {
   try {
-    // Aquí va tu lógica para guardar el menú en el perfil del usuario
+    // Encuentra al usuario por su ID
+    const user = await User.findById(req.user._id);
+
+    // Encuentra el menú por su ID
+    const menuId = req.params.id;
+
+    // Asegúrate de que el menú no está ya guardado en el perfil del usuario
+    if (user.savedMenus.includes(menuId)) {
+      return res.status(400).json({ message: 'Menu already saved' });
+    }
+
+    // Agrega el menú al perfil del usuario
+    user.savedMenus.push(menuId);
+
+    // Guarda el usuario actualizado en la base de datos
+    await user.save();
+
     res.status(200).json({ message: 'Menu saved' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+
 // Quitar un menú guardado del perfil del usuario
 exports.unsaveMenu = async (req, res) => {
   try {
-    // Aquí va tu lógica para quitar el menú del perfil del usuario
+    const user = await User.findById(req.user._id);
+    user.savedMenus.pull(req.params.id); // Utiliza el ID del menú desde los parámetros de la URL
+    await user.save();
     res.status(200).json({ message: 'Menu unsaved' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 // Función para obtener todos los menús

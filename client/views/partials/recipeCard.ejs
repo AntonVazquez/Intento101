@@ -1,26 +1,34 @@
 <div class="card mt-4">
-    <div class="card-header">
-      <h2><%= recipe.title %></h2>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Tipo de comida: <%= recipe.typeOfFood %></h5>
-      <p class="card-text">Dificultad: <%= recipe.difficulty %></p>
-      <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
-      <p class="card-text">Ingredientes:
+  <div class="card-header">
+    <h2><%= recipe.title %></h2>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Tipo de comida: <%= recipe.typeOfFood %></h5>
+    <p class="card-text">Dificultad: <%= recipe.difficulty %></p>
+    <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
+    <p class="card-text">Ingredientes:
+      <% if (recipe.ingredients) { %>
         <% recipe.ingredients.forEach(ingredient => { %>
           <%= ingredient.amount %> <%= ingredient.ingredient.name %>,
         <% }) %>
-      </p>
-      
-      <p class="card-text">Instrucciones: <%= recipe.instructions %></p>
-      <a href="/recipes/<%= recipe._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
-    </div>
-    <div class="card-body">
-      <% if (user && user.savedRecipes.includes(recipe._id)) { %>
-          <a href="/recipes/unsave/<%= recipe._id %>" class="card-link">Quitar de mis recetas</a>
       <% } else { %>
-          <a href="/recipes/save/<%= recipe._id %>" class="card-link">Guardar receta</a>
+        No hay ingredientes disponibles.
       <% } %>
-      <a href="/recipes/<%= recipe._id %>" class="card-link">Ver más</a>
-    </div>
+    </p>    
+    
+    <p class="card-text">Instrucciones: <%= recipe.instructions %></p>
+    <a href="/recipes/<%= recipe._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
   </div>
+  <div class="card-body">
+    <% if (user && user.savedRecipes && user.savedRecipes.some(savedRecipe => savedRecipe && savedRecipe._id.toString() === recipe._id.toString())) { %>
+      <form action="/recipes/<%= recipe._id %>/unsave" method="post">
+        <button type="submit" class="card-link">Quitar de mis recetas</button>
+      </form>
+  <% } else { %>
+      <form action="/recipes/<%= recipe._id %>/save" method="post">
+        <button type="submit" class="card-link">Guardar receta</button>
+      </form>
+  <% } %>  
+    <a href="/recipes/<%= recipe._id %>" class="card-link">Ver más</a>
+  </div>  
+</div>

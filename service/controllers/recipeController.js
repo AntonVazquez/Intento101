@@ -13,21 +13,26 @@ exports.ensureAuthenticated = (req, res, next) => {
 
 // Guardar una receta en el perfil del usuario
 exports.saveRecipe = async (req, res) => {
-    try {
-      const user = await User.findById(req.user._id);
-      user.savedRecipes.push(req.body.recipeId);
-      await user.save();
-      res.status(200).json({ message: 'Recipe saved' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const user = await User.findById(req.user._id);
+    // Verificar si la receta ya está guardada
+    if (user.savedRecipes.includes(req.params.id)) {
+      return res.status(400).json({ message: 'Recipe already saved' });
     }
-  };
+    user.savedRecipes.push(req.params.id);
+    await user.save();
+    res.status(200).json({ message: 'Recipe saved' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // Quitar una receta guardada del perfil del usuario
 exports.unsaveRecipe = async (req, res) => {
     try {
       const user = await User.findById(req.user._id);
-      user.savedRecipes.pull(req.body.recipeId);
+      user.savedRecipes.pull(req.params.id);
       await user.save();
       res.status(200).json({ message: 'Recipe unsaved' });
     } catch (error) {
