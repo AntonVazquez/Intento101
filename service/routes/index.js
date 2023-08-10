@@ -5,6 +5,7 @@ const recipeRoutes = require('./recipeRoutes');
 const userRoutes = require('./userRoutes');
 const homeRoutes = require('./homeRoutes');
 const ingredientRoutes = require('./ingredientRoutes');
+const searchRoutes = require('./searchRoutes');
 
 // Exporta una función que toma una aplicación Express y monta las rutas
 module.exports = function(app) {
@@ -15,4 +16,5 @@ module.exports = function(app) {
   app.use('/users', userRoutes);
   app.use('/home', homeRoutes);
   app.use('/ingredient', ingredientRoutes);
+  app.use('/search', searchRoutes);
 };

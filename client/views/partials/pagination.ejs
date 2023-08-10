@@ -1,38 +1,37 @@
 <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <% if (pagination.hasPrevPage) { %>
-        <li class="page-item">
-          <a class="page-link" href="?page=<%= pagination.currentPage - 1 %>" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-      <% } else { %>
-        <li class="page-item disabled">
-          <span class="page-link">
-            <span aria-hidden="true">&laquo;</span>
-          </span>
-        </li>
-      <% } %>
-  
-      <% for(let i = 1; i <= pagination.totalPages; i++) { %>
-        <li class="page-item <%= i == pagination.currentPage ? 'active' : '' %>">
-          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-        </li>
-      <% } %>
-  
-      <% if (pagination.hasNextPage) { %>
-        <li class="page-item">
-          <a class="page-link" href="?page=<%= pagination.currentPage + 1 %>" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      <% } else { %>
-        <li class="page-item disabled">
-          <span class="page-link">
-            <span aria-hidden="true">&raquo;</span>
-          </span>
-        </li>
-      <% } %>
-    </ul>
-  </nav>
-  
+  <ul class="pagination">
+    <% if (pagination.hasPrevPage) { %>
+      <li class="page-item">
+        <a class="page-link" href="?type=<%= searchType %>&q=<%= query %>&page=<%= pagination.currentPage - 1 %>" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link">
+          <span aria-hidden="true">&laquo;</span>
+        </span>
+      </li>
+    <% } %>
+
+    <% for(let i = 1; i <= pagination.totalPages; i++) { %>
+      <li class="page-item <%= i == pagination.currentPage ? 'active' : '' %>">
+        <a class="page-link" href="?type=<%= searchType %>&q=<%= query %>&page=<%= i %>"><%= i %></a>
+      </li>
+    <% } %>
+
+    <% if (pagination.hasNextPage) { %>
+      <li class="page-item">
+        <a class="page-link" href="?type=<%= searchType %>&q=<%= query %>&page=<%= pagination.currentPage + 1 %>" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link">
+          <span aria-hidden="true">&raquo;</span>
+        </span>
+      </li>
+    <% } %>
+  </ul>
+</nav>

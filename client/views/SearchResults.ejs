@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
-<%- include('../partials/Head.ejs') %>
+<%- include('partials/Head.ejs') %>
 
 <body>
-  <%- include('../partials/Navbar.ejs') %>
+  <%- include('partials/Navbar.ejs') %>
 
   <div class="container">
+
+    <%- include('partials/SearchForm.ejs') %>
+
     <h1>Resultados de la búsqueda</h1>
 
     <h2>Recetas</h2>
     <div class="recipe-list">
-      <% recipeResults.forEach(recipe => { %>
-        <%- include('../partials/RecipeCard.ejs', { recipe: recipe }) %>
+      <% results.recipes.forEach(recipe => { %>
+        <%- include('partials/RecipeCard.ejs', { recipe: recipe }) %>
       <% }) %>
     </div>
 
     <h2>Menús</h2>
     <div class="menu-list">
-      <% menuResults.forEach(menu => { %>
-        <%- include('../partials/MenuCard.ejs', { menu: menu }) %>
+      <% results.menus.forEach(menu => { %>
+        <%- include('partials/MenuCard.ejs', { menu: menu }) %>
       <% }) %>
     </div>
 
-    <%- include('../partials/Pagination.ejs') %>
+    <%- include('partials/Pagination.ejs') %>
   </div>
 
-  <%- include('../partials/Footer.ejs') %>
+  <%- include('partials/Footer.ejs') %>
 </body>
 
 </html>
