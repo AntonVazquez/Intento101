@@ -51,6 +51,15 @@ exports.getAllRecipes = async () => {
   }
 };
 
+// Manage recetas
+exports.manage = async (req, res) => {
+  try {
+    const recipes = await Recipe.find();
+    res.render('manageRecipes', { recipes });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 // Función para renderizar la vista
 exports.renderRecipes = async (req, res) => {

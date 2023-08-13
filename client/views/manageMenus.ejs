@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('partials/Head.ejs') %>
+  <script src="/js/manageMenus.js"></script>
+</head>
+<body>
+  <%- include('partials/Navbar.ejs') %>
+
+  <div class="container mt-4">
+    <h1>Gestionar Menús</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Título del Menú</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% menus.forEach(menu => { %>
+          <tr>
+            <td><%= menu._id %></td>
+            <td><%= menu.name %></td> <!-- Título del menú -->
+            <td>
+              <a href="/menus/<%= menu._id %>" class="btn btn-primary">Ver</a>
+              <a href="/menus/<%= menu._id %>/edit" class="btn btn-warning">Editar</a>
+              <button type="button" class="btn btn-danger delete-menu" data-id="<%= menu._id %>">Eliminar</button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <%- include('partials/Footer.ejs') %>
+</body>
+</html>

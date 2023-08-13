@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('partials/Head.ejs') %>
+  <script src="/js/manageRecipes.js"></script>
+</head>
+<body>
+  <%- include('partials/Navbar.ejs') %>
+
+  <div class="container mt-4">
+    <h1>Gestionar Recetas</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Título de la Receta</th> <!-- Cambio aquí -->
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% recipes.forEach(recipe => { %>
+          <tr>
+            <td><%= recipe._id %></td>
+            <td><%= recipe.title %></td> <!-- Título de la receta -->
+            <td>
+              <a href="/recipes/<%= recipe._id %>" class="btn btn-primary">Ver</a>
+              <a href="/recipes/<%= recipe._id %>/edit" class="btn btn-warning">Editar</a>
+              <button type="button" class="btn btn-danger delete-recipe" data-id="<%= recipe._id %>">Eliminar</button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <%- include('partials/Footer.ejs') %>
+</body>
+</html>

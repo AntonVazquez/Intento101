@@ -49,7 +49,15 @@ exports.unsaveMenu = async (req, res) => {
   }
 };
 
-
+// Manage Menús
+exports.manage = async (req, res) => {
+  try {
+    const menus = await Menu.find();
+    res.render('manageMenus', { menus });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 // Función para obtener todos los menús
 exports.getAllMenus = async () => {

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router(); 
 const adminController = require('../controllers/adminController');
+const recipeController = require('../controllers/recipeController');
+const menuController = require('../controllers/menuController');
 
 // Mostrar la página de administración
 router.get('/', adminController.showAdminPage);
@@ -40,5 +42,12 @@ router.delete('/menus/:id', adminController.deleteMenu);
 
 // Editar un menú
 router.put('/menus/:id', adminController.editMenu);
+
+// Mostrar la página de gestión de recetas
+router.get('/manageRecipes', recipeController.manage);
+
+// Mostrar la página de gestión de recetas
+router.get('/manageMenus', menuController.manage);
+
 
 module.exports = router;
