@@ -1,82 +1,81 @@
 /* Estilo básico para todo el sitio web */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-  }
-  
-  /* Estilo para la barra de navegación */
-  .navbar {
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  /* Estilo para los enlaces de la barra de navegación */
-  .navbar .nav-link {
-    color: #333;
-    margin-right: 10px;
-  }
-  
-  /* Estilo para el enlace activo en la barra de navegación */
-  .navbar .nav-link.active {
-    color: #007bff;
-  }
-  
-  /* Estilo para el encabezado */
-  head {
-    color: #333;
-  }
-  
-  /* Estilo para el pie de página */
-  .footer {
-    background-color: #f8f9fa;
-    padding: 30px 0;
-    color: #666;
-    border-top: 1px solid #e7e7e7;
-  }
-  
-  .footer h5 {
-    font-weight: 600;
-  }
-  
-  .footer a {
-    color: #666;
-    text-decoration: none;
-  }
-  
-  .footer a:hover {
-    color: #333;
-  }
-  
-  /* Estilo para los mensajes de alerta */
-  .alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-  }
-  
-  /* Estilo para los mensajes de alerta de error */
-  .alert-danger {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  /* Estilo para los mensajes de alerta de éxito */
-  .alert-success {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  /* Estilo para los mensajes de alerta de información */
-  .alert-info {
-    background-color: #2196F3;
-    color: white;
-  }
-  
-  /* Estilo para los mensajes de alerta de advertencia */
-  .alert-warning {
-    background-color: #ff9800;
-    color: white;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+/* Estilo para la barra de navegación */
+.navbar {
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los enlaces de la barra de navegación */
+.navbar .nav-link {
+  color: #333;
+  margin-right: 10px;
+}
+
+/* Estilo para el enlace activo en la barra de navegación */
+.navbar .nav-link.active {
+  color: #007bff;
+}
+
+/* Estilo para el encabezado */
+/* (corregido, ya que "head" no es una etiqueta HTML válida para estilizar) */
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+}
+
+/* Estilo para el pie de página */
+.footer {
+  background-color: #f8f9fa;
+  padding: 30px 0;
+  color: #666;
+  border-top: 1px solid #e7e7e7;
+}
+
+.footer h5 {
+  font-weight: 600;
+}
+
+.footer a {
+  color: #666;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #333;
+}
+
+/* Estilo para los mensajes de alerta */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+/* Las clases de alerta siguientes ya están definidas por Bootstrap, pero puedes personalizarlas si quieres */
+.alert-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.alert-success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.alert-info {
+  background-color: #2196F3;
+  color: white;
+}
+
+.alert-warning {
+  background-color: #ff9800;
+  color: white;
+}
+
+/* Puedes añadir más estilos específicos según tus necesidades */

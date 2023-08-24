@@ -7,6 +7,13 @@
   <%- include('partials/Navbar.ejs') %>
 
   <div class="container">
+    <%- include('partials/alerts.ejs', { messages: { 
+      success: success, 
+      error: error, 
+      info: info, 
+      warning: warning 
+    } }) %>
+    
     <% if (menus.length > 0) { %>
       <% menus.forEach(menu => { %>
         <%- include('partials/menuCard.ejs', { menu: menu }) %>

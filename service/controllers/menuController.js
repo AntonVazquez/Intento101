@@ -13,29 +13,24 @@ exports.ensureAuthenticated = (req, res, next) => {
 // Guardar un menú en el perfil del usuario
 exports.saveMenu = async (req, res) => {
   try {
-    // Encuentra al usuario por su ID
     const user = await User.findById(req.user._id);
-
-    // Encuentra el menú por su ID
     const menuId = req.params.id;
-
-    // Asegúrate de que el menú no está ya guardado en el perfil del usuario
+    
+    // Verificar si el menú ya está guardado
     if (user.savedMenus.includes(menuId)) {
-      return res.status(400).json({ message: 'Menu already saved' });
+      req.flash('warning', 'Menú ya guardado.');
+      return res.redirect('/users/profile'); // Redireccionando a la página de perfil
     }
-
-    // Agrega el menú al perfil del usuario
+    
     user.savedMenus.push(menuId);
-
-    // Guarda el usuario actualizado en la base de datos
     await user.save();
-
-    res.status(200).json({ message: 'Menu saved' });
+    req.flash('success', 'Menú guardado con éxito.');
+    res.redirect('/users/profile'); // Redireccionando a la página de perfil
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    req.flash('error', 'Hubo un error al guardar el menú. Por favor, inténtalo de nuevo.');
+    res.redirect('/users/profile'); // Redireccionando a la página de perfil
   }
 };
-
 
 // Quitar un menú guardado del perfil del usuario
 exports.unsaveMenu = async (req, res) => {
@@ -43,11 +38,14 @@ exports.unsaveMenu = async (req, res) => {
     const user = await User.findById(req.user._id);
     user.savedMenus.pull(req.params.id); // Utiliza el ID del menú desde los parámetros de la URL
     await user.save();
-    res.status(200).json({ message: 'Menu unsaved' });
+    req.flash('success', 'Menú quitado con éxito.');
+    res.redirect('/users/profile'); // Redireccionando a la página de perfil
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    req.flash('error', 'Hubo un error al quitar el menú. Por favor, inténtalo de nuevo.');
+    res.redirect('/users/profile'); // Redireccionando a la página de perfil
   }
 };
+
 
 // Manage Menús
 exports.manage = async (req, res) => {
@@ -102,15 +100,21 @@ exports.getMenu = async (req, res) => {
   }
 };
 
-// Crear un nuevo menú
-exports.createMenu = (req, res, next) => {
+// Controlador para crear un menú
+exports.createMenu = async (req, res, next) => {
   const menuData = req.body;
   menuData.user = req.user._id;  // Aquí se establece el campo usuario
 
-  Menu.create(menuData)
-      .then(menu => res.status(201).json(menu))
-      .catch(err => next(err));
+  try {
+    const menu = await Menu.create(menuData);
+    req.flash('success', 'Menú creado exitosamente.');
+    res.redirect('/menus');
+  } catch (err) {
+    req.flash('error', 'Hubo un error al crear el menú. Por favor, inténtalo de nuevo.');
+    res.redirect('/menus/Crear');
+  }
 };
+
 
 // Actualizar un menú específico
 exports.updateMenu = async (req, res) => {

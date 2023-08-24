@@ -44,6 +44,16 @@ app.use(session({
 // Configura connect-flash para los mensajes flash
 app.use(flash());
 
+// Implementa middleware para hacer 'user' accesible en las vistas y exponer mensajes flash
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  res.locals.info = req.flash('info');
+  res.locals.warning = req.flash('warning');
+  next();
+});
+
 // Inicializa Passport
 app.use(passport.initialize());
 app.use(passport.session());

@@ -123,29 +123,33 @@ exports.showSavedMenus = async (req, res) => {
 
 // Guardar una receta en el perfil del usuario
 exports.saveRecipe = async (req, res) => {
-    const user = await User.findById(req.user._id);
-    const recipeId = req.params.id;
-  
-    if (!user.savedRecipes.includes(recipeId)) {
-      user.savedRecipes.push(recipeId);
-      await user.save();
-      res.status(200).json({ message: 'Recipe saved successfully' });
-    } else {
-      res.status(400).json({ message: 'Recipe already saved' });
-    }
-  };
-  
-  // Quitar una receta guardada del perfil del usuario
-  exports.unsaveRecipe = async (req, res) => {
-    const user = await User.findById(req.user._id);
-    const recipeId = req.params.id;
-  
-    const index = user.savedRecipes.indexOf(recipeId);
-    if (index !== -1) {
-      user.savedRecipes.splice(index, 1);
-      await user.save();
-      res.status(200).json({ message: 'Recipe unsaved successfully' });
-    } else {
-      res.status(400).json({ message: 'Recipe not found in saved recipes' });
-    }
-  };
+  const user = await User.findById(req.user._id);
+  const recipeId = req.params.id;
+
+  if (!user.savedRecipes.includes(recipeId)) {
+    user.savedRecipes.push(recipeId);
+    await user.save();
+    req.flash('success', ['Receta guardada con éxito.']);
+    res.redirect('/users/profile'); // Suponiendo que '/profile' es la ruta del perfil del usuario
+  } else {
+    req.flash('warning', ['La receta ya está guardada.']);
+    res.redirect('/users/profile');
+  }
+};
+
+// Quitar una receta guardada del perfil del usuario
+exports.unsaveRecipe = async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const recipeId = req.params.id;
+
+  const index = user.savedRecipes.indexOf(recipeId);
+  if (index !== -1) {
+    user.savedRecipes.splice(index, 1);
+    await user.save();
+    req.flash('success', ['Receta quitada con éxito.']);
+    res.redirect('/users/profile'); // Suponiendo que '/profile' es la ruta del perfil del usuario
+  } else {
+    req.flash('error', ['Receta no encontrada en las recetas guardadas.']);
+    res.redirect('/users/profile');
+  }
+};

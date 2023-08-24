@@ -13,32 +13,36 @@ exports.ensureAuthenticated = (req, res, next) => {
 
 // Guardar una receta en el perfil del usuario
 exports.saveRecipe = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    // Verificar si la receta ya está guardada
-    if (user.savedRecipes.includes(req.params.id)) {
-      return res.status(400).json({ message: 'Recipe already saved' });
-    }
-    user.savedRecipes.push(req.params.id);
+  const user = await User.findById(req.user._id);
+  const recipeId = req.params.id;
+
+  if (!user.savedRecipes.includes(recipeId)) {
+    user.savedRecipes.push(recipeId);
     await user.save();
-    res.status(200).json({ message: 'Recipe saved' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
+    req.flash('success', ['Receta guardada con éxito.']);
+    res.redirect('/users/profile'); // Suponiendo que '/profile' es la ruta del perfil del usuario
+  } else {
+    req.flash('warning', ['La receta ya está guardada.']);
+    res.redirect('/users/profile');
   }
 };
 
 // Quitar una receta guardada del perfil del usuario
 exports.unsaveRecipe = async (req, res) => {
-    try {
-      const user = await User.findById(req.user._id);
-      user.savedRecipes.pull(req.params.id);
-      await user.save();
-      res.status(200).json({ message: 'Recipe unsaved' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
+  const user = await User.findById(req.user._id);
+  const recipeId = req.params.id;
+
+  const index = user.savedRecipes.indexOf(recipeId);
+  if (index !== -1) {
+    user.savedRecipes.splice(index, 1);
+    await user.save();
+    req.flash('success', ['Receta quitada con éxito.']);
+    res.redirect('/users/profile'); // Suponiendo que '/profile' es la ruta del perfil del usuario
+  } else {
+    req.flash('error', ['Receta no encontrada en las recetas guardadas.']);
+    res.redirect('/users/profile');
+  }
+};
 
 // Función para obtener todas las recetas
 exports.getAllRecipes = async () => {
@@ -99,11 +103,17 @@ exports.showCreateRecipeForm = (req, res) => {
 // Crear una nueva receta
 exports.createRecipe = (req, res, next) => {
   const recipeData = req.body;
-  recipeData.author = req.user._id;  // Aquí se establece el campo autor
+  recipeData.author = req.user._id; // Aquí se establece el campo autor
 
   Recipe.create(recipeData)
-      .then(recipe => res.status(201).json(recipe))
-      .catch(err => next(err));
+    .then(recipe => {
+      req.flash('success', ['Receta creada exitosamente.']);
+      res.redirect('/recipes'); // Suponiendo que '/recipes' es la ruta donde se listan las recetas
+    })
+    .catch(err => {
+      req.flash('error', ['Hubo un error al crear la receta. Por favor, inténtalo de nuevo.']);
+      res.redirect('/recipes/create'); // Suponiendo que '/recipes/create' es la ruta del formulario para crear recetas
+    });
 };
 
 
