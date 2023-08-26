@@ -1,15 +1,48 @@
 .navbar {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-bottom: 2px solid #1eb9c6; /* Añadir un borde inferior para un toque visual */
+    border-bottom: 2px solid #1eb9c6;
+    display: flex;
+    justify-content: space-between; /* Distribuir el espacio entre los elementos */
+    align-items: center; /* Centrar verticalmente */
+    padding-right: 250px; /* Espacio adicional a la derecha para separar los elementos del borde */
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;     /* Centrar verticalmente */
+    flex-grow: 1;            /* Permitir que el elemento crezca y ocupe el espacio disponible */
 }
 
 .navbar-brand img.logo-image {
-    height: 50px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-right: 0px; /* Aumentar el espacio a la derecha de la imagen */
+    margin-left: 50px; /* Aumentar el espacio a la izquierda de la imagen */
+
 }
+
+.icon-link {
+    margin-left: 150px; /* Ajusta este valor según el espacio que desees entre el último elemento y el icono */
+}
+
+.cart-icon {
+    height: 35px; /* Ajustar según el tamaño deseado del icono */
+    vertical-align: middle;
+}
+
 
 .navbar-toggler {
     border-color: #ddd;
+    display: none; /* Ocultar por defecto */
+}
+
+@media screen and (max-width: 768px) {
+    /* Mostrar el toggler solo en pantallas pequeñas */
+    .navbar-toggler {
+        display: block;
+    }
 }
 
 .navbar-toggler-icon {
@@ -29,7 +62,7 @@
 }
 
 .nav-item a {
-    color: #1eb9c6; /* Color personalizado para todos los enlaces */
+    color: #1eb9c6; 
     text-decoration: none;
     font-weight: 600;
     font-size: 1.05em;
@@ -38,10 +71,9 @@
 
 .nav-item a:hover {
     font-size: 1.15em;
-    color: #157a8d; /* Cambio de color al pasar por encima */
+    color: #157a8d;
 }
 
 .nav-item.active a {
-    color: #1eb9c6; /* Puedes cambiar este color si quieres que el enlace activo tenga un color diferente */
+    color: #1eb9c6; 
 }
-

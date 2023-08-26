@@ -153,3 +153,23 @@ exports.unsaveRecipe = async (req, res) => {
     res.redirect('/users/profile');
   }
 };
+
+// Renderiza la vista del formulario de actualización (si decides usar un formulario)
+exports.showUpgradeForm = (req, res) => {
+  res.render('upgrade');
+};
+
+// Actualiza la suscripción en la base de datos
+exports.upgradeToPremium = async (req, res) => {
+  const userId = req.user._id;
+
+  try {
+    await User.findByIdAndUpdate(userId, { subscription: 'premium' });
+    res.redirect('/users/profile');
+  } catch (err) {
+    // Maneja el error
+    console.error(err);
+    res.redirect('/users/profile');
+  }
+};
+

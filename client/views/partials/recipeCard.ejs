@@ -1,9 +1,10 @@
+<link rel="stylesheet" type="text/css" href="/css/RecipeCard.css">
 <div class="card mt-4">
   <div class="card-header">
-    <h2><%= recipe.title %></h2>
+    <h3><%= recipe.title %></h3>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Tipo de comida: <%= recipe.typeOfFood %></h5>
+    <p class="card-title">Tipo de comida: <%= recipe.typeOfFood %></p>
     <p class="card-text">Dificultad: <%= recipe.difficulty %></p>
     <p class="card-text">Tiempo de preparación: <%= recipe.preparationTime %> minutos</p>
     <p class="card-text">Ingredientes:
@@ -15,20 +16,27 @@
         No hay ingredientes disponibles.
       <% } %>
     </p>    
-    
     <p class="card-text">Instrucciones: <%= recipe.instructions %></p>
-    <a href="/recipes/<%= recipe._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
+
+    <% if (user) { %>
+      <form action="/recipes/<%= recipe._id %>/comparePrices" method="get">
+        <button type="submit" class="btn btn-primary mt-3">Comparar precios</button>
+      </form>
+    <% } else { %>
+      <p class="text-warning">¡Regístrate o inicia sesión para comparar precios y guardar recetas!</p>
+    <% } %>
+
   </div>
   <div class="card-body">
     <% if (user && user.savedRecipes && user.savedRecipes.some(savedRecipe => savedRecipe && savedRecipe._id.toString() === recipe._id.toString())) { %>
       <form action="/recipes/<%= recipe._id %>/unsave" method="post">
-        <button type="submit" class="card-link">Quitar de mis recetas</button>
+        <button type="submit" class="btn btn-primary">Quitar de mis recetas</button>
       </form>
-  <% } else { %>
+    <% } else if (user) { %>
       <form action="/recipes/<%= recipe._id %>/save" method="post">
-        <button type="submit" class="card-link">Guardar receta</button>
+        <button type="submit" class="btn btn-primary">Guardar receta</button>
       </form>
-  <% } %>  
+    <% } %>  
     <a href="/recipes/<%= recipe._id %>" class="card-link">Ver más</a>
   </div>  
 </div>

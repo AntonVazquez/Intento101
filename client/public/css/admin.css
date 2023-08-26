@@ -1,69 +1,40 @@
-/* Estilos generales */
+/* Base */
+body, html {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
 .container {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  
-  .jumbotron {
-    background-color: #f8f9fa;
-  }
-  
-  .jumbotron .btn {
-    color: #fff;
-    background-color: #007bff;
-  }
-  
-  /* Estilos para los botones de gestión */
-  
-  .manage-btn {
-    margin-right: 5px;
-  }
-  
-  .manage-btn[data-action="activate"] {
-    color: #fff;
-    background-color: #28a745;
-  }
-  
-  .manage-btn[data-action="deactivate"] {
-    color: #fff;
-    background-color: #ffc107;
-  }
-  
-  .manage-btn[data-action="delete"] {
-    color: #fff;
-    background-color: #dc3545;
-  }
-  
-  /* Estilos para la tabla de recursos */
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  table th, table td {
-    border: 1px solid #dee2e6;
-    padding: 8px;
-  }
-  
-  table th {
-    background-color: #e9ecef;
-    text-align: left;
-  }
-  
-  table td .status {
-    text-transform: capitalize;
-  }
-  
-  /* Estilos para la vista de usuarios, recetas y menús */
-  
-  #users-view, #recipes-view, #menus-view {
-    display: none;
-  }
-  
-  #users-view.active, #recipes-view.active, #menus-view.active {
-    display: block;
-  }
-  
+  max-width: 1100px;
+  margin: auto;  /* Centra el contenido horizontalmente */
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Centra el contenido verticalmente dentro del container */
+}
+
+/* Jumbotron */
+.jumbotron {
+  background-color: #f4f4f4; /* Quitar el fondo azul */
+  color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;  /* Alinear el texto al centro */
+}
+
+.jumbotron h1 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+.jumbotron p {
+  font-size: 1.2em;
+}

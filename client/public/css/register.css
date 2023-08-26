@@ -2,53 +2,12 @@ body {
     font-family: Arial, sans-serif;
   }
   
-  .container {
-    width: 80%;
-    margin: 0 auto;
-  }
-  
   h1 {
     text-align: center;
-    color: #333;
+    color: #14737b;
+    margin-bottom: -25px;
+    margin-top: 80px;
   }
   
-  form {
-    width: 50%;
-    margin: 0 auto;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-  }
-  
-  button.btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    margin-top: 20px;
-    cursor: pointer;
-  }
-  
-  button.btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .error {
-    color: red;
-    margin-top: 5px;
-  }
+
   

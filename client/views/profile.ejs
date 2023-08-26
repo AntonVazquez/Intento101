@@ -2,6 +2,7 @@
 <html>
 <head>
   <%- include('partials/Head.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/css/profile.css">
 </head>
 <body>
   <%- include('partials/Navbar.ejs') %>
@@ -21,22 +22,40 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">Email: <%= user.email %></h5>
-        
+        <h5 class="card-title">Suscripción: <%= user.subscription.charAt(0).toUpperCase() + user.subscription.slice(1) %></h5>
 
-        <h5 class="mt-4">Saved Recipes</h5>
+        <% if (user.subscription === 'free') { %>
+          <a href="/users/upgrade" class="btn btn-primary">Actualizar a Premium</a>
+        <% } %>
+
+        <h3 class="mt-4">Saved Recipes</h3>
         <div class="row">
           <% user.savedRecipes.forEach(recipe => { %>
             <div class="col-md-4">
               <%- include('partials/RecipeCard.ejs', { recipe: recipe }) %>
+              <% if (user.subscription === 'premium') { %>
+                <!-- Botón para permitir la compra con envío a domicilio -->
+                <button class="btn btn-success mb-2">Enviar Receta a Domicilio</button>
+              <% } else { %>
+                <!-- Mensaje para alentar al usuario a actualizar a premium -->
+                <p class="text-warning">Actualiza a Premium para enviar esta receta a domicilio.</p>
+              <% } %>
             </div>
           <% }) %>
         </div>
 
-        <h5 class="mt-4">Saved Menus</h5>
+        <h3 class="mt-4">Saved Menus</h3>
         <div class="row">
           <% user.savedMenus.forEach(menu => { %>
             <div class="col-md-4">
               <%- include('partials/MenuCard.ejs', { menu: menu }) %>
+              <% if (user.subscription === 'premium') { %>
+                <!-- Botón para permitir la compra con envío a domicilio -->
+                <button class="btn btn-success mb-2">Enviar Menú a Domicilio</button>
+              <% } else { %>
+                <!-- Mensaje para alentar al usuario a actualizar a premium -->
+                <p class="text-warning">Actualiza a Premium para enviar este menú a domicilio.</p>
+              <% } %>
             </div>
           <% }) %>
         </div>

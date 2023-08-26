@@ -2,13 +2,27 @@ const Recipe = require('../models/recipe');
 const User = require('../models/user');
 const Ingredient = require('../models/ingredient');
 
+// Función para obtener todas las recetas
+exports.getAllRecipes = async () => {
+  try {
+    const recipes = await Recipe.find().populate('ingredients.ingredient');
+    return recipes;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
 // Autenticación de usuario
 exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.status(401).json({ message: 'You need to log in to access this resource' });
+  // Usando el sistema de mensajes flash para informar al usuario
+  req.flash('warning', 'Necesitas iniciar sesión para acceder a este recurso.');
+  
+  // Redireccionando al usuario a /home
+  res.redirect('/home');
 };
 
 // Guardar una receta en el perfil del usuario
@@ -41,17 +55,6 @@ exports.unsaveRecipe = async (req, res) => {
   } else {
     req.flash('error', ['Receta no encontrada en las recetas guardadas.']);
     res.redirect('/users/profile');
-  }
-};
-
-// Función para obtener todas las recetas
-exports.getAllRecipes = async () => {
-  try {
-    const recipes = await Recipe.find().populate('ingredients.ingredient');
-    return recipes;
-  } catch (error) {
-    console.error(error);
-    return [];
   }
 };
 

@@ -1,27 +1,36 @@
+<link rel="stylesheet" type="text/css" href="/css/RecipeCard.css">
 <div class="card mt-4">
-    <div class="card-header">
-      <h2><%= menu.name %></h2>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Días: <%= menu.days %></h5>
-      <p class="card-text">Meta: <%= menu.goal %></p>
-      <p class="card-text">Recetas:
-        <% (menu.recipes || []).forEach(recipe => { %>
-          <%= recipe.title %>,
-        <% }) %>        
-      </p>
-      <a href="/menus/<%= menu._id %>/comparePrices" class="btn btn-primary mt-3">Comparar precios</a>
-      <div class="card-body">
-        <% if (user && user.savedMenus.some(menuItem => menuItem._id.toString() === menu._id.toString())) { %>
-          <form action="/menus/<%= menu._id %>/unsave" method="post">
-            <button type="submit" class="card-link">Quitar de mis menús</button>
-          </form>
-        <% } else { %>
-          <form action="/menus/<%= menu._id %>/save" method="post">
-            <button type="submit" class="card-link">Guardar menú</button>
-          </form>
-        <% } %>
-        <a href="/menus/<%= menu._id %>" class="card-link">Ver más</a>
-      </div>      
+  <div class="card-header">
+    <h3><%= menu.name %></h3>
   </div>
-  
+  <div class="card-body">
+    <p class="card-title">Días: <%= menu.days %></p>
+    <p class="card-text">Meta: <%= menu.goal %></p>
+    <p class="card-text">Recetas:
+      <% (menu.recipes || []).forEach(recipe => { %>
+        <%= recipe.title %>,
+      <% }) %>        
+    </p>
+
+    <% if (user) { %>
+      <form action="/menus/<%= menu._id %>/comparePrices" method="get">
+        <button type="submit" class="btn btn-primary mt-3">Comparar precios</button>
+      </form>
+    <% } else { %>
+      <p class="text-warning">¡Regístrate o inicia sesión para comparar precios y guardar menús!</p>
+    <% } %>
+    
+  </div>
+  <div class="card-body">
+    <% if (user && user.savedMenus.some(menuItem => menuItem._id.toString() === menu._id.toString())) { %>
+      <form action="/menus/<%= menu._id %>/unsave" method="post">
+        <button type="submit" class="btn btn-primary">Quitar de mis menús</button>
+      </form>
+    <% } else if (user) { %>
+      <form action="/menus/<%= menu._id %>/save" method="post">
+        <button type="submit" class="btn btn-primary">Guardar menú</button>
+      </form>
+    <% } %>  
+    <a href="/menus/<%= menu._id %>" class="card-link">Ver más</a>
+  </div>      
+</div>

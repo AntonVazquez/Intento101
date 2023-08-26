@@ -1,71 +1,65 @@
-/* Archivo registerForm.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
 
-form {
+.register-form {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
     max-width: 500px;
-    margin: 0 auto;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.form-group label {
-    display: inline-block;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.form-group input {
+label {
     display: block;
-    width: 100%;
-    height: calc(1.em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #34495e;
 }
 
-.form-group input:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 
 .btn {
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
 }
 
 .btn-primary {
+    background-color: #1eb9c6;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
 }
 
 .btn-primary:hover {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc;
+    background-color: #0a676f;
 }
 
-.btn-primary:focus {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc;
-    box-shadow: 0 0 0 .2rem rgba(38, 143, 255, .5);
+@media (max-width: 480px) {
+    .register-form {
+        padding: 20px 20px;
+    }
 }

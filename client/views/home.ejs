@@ -1,35 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <%- include('partials/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/css/home.css">
 
 <body>
   <%- include('partials/navbar.ejs') %>
+  <div class="container mt-4">
+    <%- include('partials/alerts.ejs', { messages: { 
+      success: success, 
+      error: error, 
+      info: info, 
+      warning: warning 
+    } }) %>
+  <div class="container">
+    <div class="container-relative">
+      <div style="position: relative;">
+        <img src="img/slider-main.png" alt="Imagen principal" style="width: 100%; height: auto;">
+        
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+          <h2>¿QUÉ QUIERES COMER HOY?</h2>
+          <p>ESCOGE TU RECETA</p>
+          <p>QUE LOS INGREDIENTES</p>
+          <h2>LOS LLEVAMOS NOSOTROS.</h2>
+        </div>
+      
+        <div style="position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); text-align: center;">
+          <a href="/recipes/Crear" class="btn btn-primary">Crear receta</a>
+          <a href="/menus/Crear" class="btn btn-primary">Crear menú</a>
+          <a href="/search" class="btn btn-primary">Buscar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div class="container">
-    <h1>Bienvenidos a Nuestra Aplicación de Recetas</h1>
+    <h2 class="text-center">CÓMO Funciona</h2>
+    <div class="row">
+      <div class="col-md-3 text-center">
+        <h3>1</h3>
+        <h4>ELIGE</h4>
+        <p>Escoge una receta, diseña la tuya o selecciona una nuestra</p>
+      </div>
+      <div class="col-md-3 text-center">
+        <h3>2</h3>
+        <h4>ORGANIZA</h4>
+        <p>Agrega o elimina ingredientes. Para uno o la familia entera. Adáptalo a tu manera</p>
+      </div>
+      <div class="col-md-3 text-center">
+        <h3>3</h3>
+        <h4>COMPARA</h4>
+        <p>Compara el precio de los productos de distintos supermercados</p>
+      </div>
+      <div class="col-md-3 text-center">
+        <h3>4</h3>
+        <h4>DISFRUTA</h4>
+        <p>¡Al carro de compras y listo! Recíbelo en tu casa en menos de 2 hs.</p>
+      </div>
+    </div>
+  </div> 
 
-    <div class="recipe-list">
+  <h2>Recetas Favoritas</h2>
+  <div class="swiper-pagination global-swiper-pagination"></div>
+  <div class="recipe-list swiper-container">
+    <div class="swiper-wrapper">
       <% if (typeof recipes !== 'undefined' && recipes.length > 0) { %>
         <% recipes.forEach(recipe => { %>
-          <%- include('partials/recipeCard.ejs', { recipe: recipe }) %>
+          <div class="swiper-slide">
+            <%- include('partials/recipeCard.ejs', { recipe: recipe }) %>
+          </div>
         <% }) %>
       <% } else { %>
         <p>No hay recetas disponibles.</p>
       <% } %>
     </div>
-    
-    <div class="menu-list">
+  </div>
+
+  <h2>Menús Favoritos</h2>
+  <div class="swiper-pagination global-swiper-pagination"></div>
+  <div class="menu-list swiper-container">
+    <div class="swiper-wrapper">
       <% if (typeof menus !== 'undefined' && menus.length > 0) { %>
         <% menus.forEach(menu => { %>
-          <%- include('partials/menuCard.ejs', { menu: menu }) %>
+          <div class="swiper-slide">
+            <%- include('partials/menuCard.ejs', { menu: menu }) %>
+          </div>
         <% }) %>
       <% } else { %>
         <p>No hay menús disponibles.</p>
       <% } %>
     </div>
-    
+  </div>
 
   <%- include('./partials/Footer.ejs') %>
 </body>
-
+<script>
+  const swiper = new Swiper('.swiper-container', {
+    slidesPerView: 4,
+    spaceBetween: 30,
+    pagination: {
+      el: '.global-swiper-pagination',
+      clickable: true,
+    },
+  });
+</script>
 </html>

@@ -1,65 +1,119 @@
-/* Estilos Generales */
+/* Estilos para home.css */
 
+/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 1em;
-  }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  /* Estilos para las tarjetas de recetas y menús */
-  
-  .card {
-    margin: 1em;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-img-top {
-    width: 100%;
-    height: auto;
-  }
-  
-  .card-body {
-    padding: 1em;
-  }
-  
-  .card-title {
-    font-size: 1.5em;
-    color: #007BFF;
-  }
-  
-  .card-text {
-    color: #666;
-  }
-  
-  .list-group-item {
-    border: none;
-    padding: 0.5em 1em;
-    color: #333;
-  }
-  
-  .card-link {
-    color: #007BFF;
-    text-decoration: none;
-  }
-  
-  .card-link:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
-  
-  /* Estilos para las listas de recetas y menús */
-  
-  .recipe-list, .menu-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos para la imagen y el texto superpuesto */
+.container-relative {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.container-relative img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  filter: brightness(0.6); /* Hace la imagen un 40% más oscura */
+}
+
+.container-relative h2 {
+  font-size: 2em; /* Cambia según tu preferencia */
+  color: white;
+  margin-bottom: 15px;
+}
+
+.container-relative p {
+  font-size: 1.5em; /* Cambia según tu preferencia */
+  color: white;
+  margin-bottom: 15px;
+}
+
+.container-relative div p {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.container-relative .btn {
+  margin: 5px 10px 5px 0;
+  background-color: white;
+  border-color: white;
+  color: #1eb9c6;
+  padding: 15px 30px;  /* Aumenta el padding para un botón más grande */
+  font-size: 1.2em;   /* Aumenta el tamaño de fuente */
+  border-radius: 7px; /* Ajusta el border-radius */
+  text-decoration: none;
+  transform: scale(1); /* Define un estado inicial para la transformación */
+  transition: background-color 0.3s, transform 0.3s; /* Agregamos animación de transform */
+}
+
+
+.container-relative .btn:hover {
+  background-color: #b3bcbc;
+  border-color: #b3bcbc;
+  color: #1eb9c6;
+  transform: scale(5.05) ; /* Usa !important temporalmente para asegurarte de que se aplique el estilo */
+}
+
+
+/* Estilos para la sección de CÓMO Funciona */
+.text-center h3 {
+  color: #1eb9c6;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.text-center h4 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.text-center p {
+  font-size: 14px;
+}
+
+.container .row {
+  display: flex; 
+  flex-wrap: nowrap; 
+  overflow-x: auto; 
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.col-md-3 {
+  flex: 0 0 24%; 
+  max-width: 24%;
+  padding: 10px;
+  box-sizing: border-box; 
+}
+
+/* Estilos para Recetas y Menús Favoritos */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-align: center; /* Centramos el título */
+  color: #1eb9c6; /* Cambiamos el color a #1eb9c6 */
+}
+
+.recipe-list,
+.menu-list {
+  margin-bottom: 30px;
+}
+
+.swiper-container {
+  padding-bottom: 30px; 
+}
+
+.swiper-pagination-bullet {
+  background-color: #1eb9c6;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+

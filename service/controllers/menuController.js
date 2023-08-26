@@ -7,7 +7,11 @@ exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.status(401).json({ message: 'You need to log in to access this resource' });
+  // Usando el sistema de mensajes flash para informar al usuario
+  req.flash('warning', 'Necesitas iniciar sesión para acceder a este recurso.');
+  
+  // Redireccionando al usuario a /home
+  res.redirect('/home');
 };
 
 // Guardar un menú en el perfil del usuario

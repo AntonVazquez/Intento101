@@ -29,6 +29,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subscription: {
+    type: String,
+    enum: ['free', 'premium'],
+    default: 'free'
+  },
+  subscriptionExpiresAt: {
+    type: Date,
+    default: null // Puedes configurar esto cuando un usuario se suscribe
+  },
   savedRecipes: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -45,6 +54,7 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   }
+  
 }, {
   timestamps: true, // añade campos createdAt y updatedAt
 });

@@ -1,69 +1,62 @@
-body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  .card {
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  }
-  
-  .card-header {
-    background-color: #f8f9fa;
-    padding: 20px;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-  }
-  
-  h5 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .card-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .card-link:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
-  
-  ul.list-group.list-group-flush > li {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 15px;
-  }
-  
-  .btn {
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    text-decoration: none;
-  }
-  
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .row > .col-md-4 {
-    padding: 15px;
-  }
-  
-  img.card-img-top {
-    width: 100%;
-    height: auto;
-  }
-  
+/* Contenedor principal */
+.container {
+  max-width: 800px;
+}
+
+/* Encabezado de la tarjeta del perfil */
+.card-header {
+  background-color: #1eb9c6;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+/* Cuerpo de la tarjeta del perfil */
+.card-body {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+/* Títulos dentro del cuerpo de la tarjeta */
+.card-title {
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+/* Botones de la tarjeta del perfil */
+.btn {
+  margin: 10px 0;
+}
+
+/* Botón de actualizar a Premium */
+.btn-primary {
+  background-color: #157a8d;
+  border-color: #157a8d;
+}
+
+/* Botón de envío a domicilio */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+/* Aviso de actualización a Premium */
+.text-warning {
+  font-weight: bold;
+  color: #ffc107;
+}
+
+/* Estilo de las tarjetas de recetas y menús guardados */
+.row .col-md-4 {
+  margin-bottom: 20px;
+}
+
+/* Títulos para las secciones Saved Recipes y Saved Menus */
+h3.mt-4 {
+  font-size: 1.5em;
+  color: #1eb9c6; /* Color que coincide con tu paleta */
+  border-bottom: 2px solid #1eb9c6; /* Línea debajo del título */
+  padding-bottom: 5px;
+  margin-top: 30px; /* Espacio adicional arriba del título */
+}

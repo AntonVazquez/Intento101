@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .page-item {
+    margin: 0 5px;
+  }
+  
+  .page-link {
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: #1eb9c6;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+  }
+  
+  .page-link:hover {
+    background-color: #f5f5f5;
+    color: #1eb9c6;
+  }
+  
+  .page-item.active .page-link {
+    background-color: #1eb9c6;
+    color: white;
+  }
+  
+  .page-item.disabled .page-link {
+    color: #ddd;
+    pointer-events: none;
+  }
+  
+  /* Oculta las flechas de la paginación en dispositivos pequeños */
+  @media (max-width: 576px) {
+    .page-item:first-child, .page-item:last-child {
+      display: none;
+    }
+  }
+  

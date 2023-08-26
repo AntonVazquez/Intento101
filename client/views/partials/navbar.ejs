@@ -4,8 +4,11 @@
     <link rel="stylesheet" type="text/css" href="/css/navbar.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Recetas</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light align-items-center">
+        <a class="navbar-brand" href="/home">
+            <img src="/img/BLUEAT.png" alt="Recetas"  class="d-inline-block logo-image">
+        </a>        
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,6 +47,9 @@
                     </li>
                 <% } %>
             </ul>
+            <a href="/users/profile" class="icon-link">
+                <img src="/img/cart-icon.png" alt="Carrito" class="d-inline-block cart-icon">
+            </a>
         </div>
     </nav>
 </body>

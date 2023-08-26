@@ -1,0 +1,82 @@
+/* Estilos para la tarjeta de recetas */
+
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: #1eb9c6;
+    color: white;
+    font-weight: bold;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.card-body {
+    padding: 1em 1.5em;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #333;
+    margin-top: 0.5em;
+}
+
+.card-text {
+    margin-top: 0.5em;
+    color: #555;
+    line-height: 1.5;
+}
+
+.card-link {
+    color: #1eb9c6;
+    transition: color 0.3s;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-link:hover {
+    color: #149a9c;  /* Un tono más oscuro de tu color principal para el hover */
+}
+
+.btn-primary {
+    background-color: #1eb9c6;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #149a9c;
+    color: white;
+}
+
+.text-warning {
+    color: #f0a500;
+}
+
+/* Estilos existentes ... */
+
+/* Ajuste de los márgenes para los formularios de botones */
+form {
+    display: inline-block;  /* Esto hace que los formularios (que contienen botones) se muestren uno al lado del otro. */
+    margin-right: 10px;     /* Espaciado entre el botón de "Comparar precios" y "Guardar receta" */
+}
+
+/* Ajusta el margen del enlace "Guardar receta" */
+.card-link {
+    margin-left: 10px;   /* Añade un pequeño margen a la izquierda de "Guardar receta" */
+    /* ... estilos existentes ... */
+}
+

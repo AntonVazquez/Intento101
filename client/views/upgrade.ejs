@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('partials/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/css/upgrade.css">
+
+<body>
+    <%- include('partials/navbar.ejs') %>
+
+    <div class="container mt-4">
+        <h1 class="upgrade-title">Actualiza a Premium</h1>
+        <p>Disfruta de los siguientes beneficios exclusivos con tu suscripción Premium:</p>
+        <div class="benefits-container">
+            <ul>
+                <li><strong>Envío a domicilio:</strong> Recibe tus recetas y menús favoritos en la puerta de tu casa.</li>
+                <li><strong>Acceso a recetas exclusivas:</strong> Accede a una selección especial de recetas solo para suscriptores Premium.</li>
+                <li><strong>Soporte prioritario:</strong> Obtén soporte prioritario para todas tus dudas y consultas.</li>
+                <!-- Puedes agregar más beneficios aquí -->
+            </ul>
+        </div>
+        
+        <p>¡No te pierdas estas increíbles características! Actualiza ahora y disfruta de una experiencia culinaria sin igual.</p>
+        <form action="/users/upgrade" method="post">
+            <button type="submit" class="btn btn-primary">Actualizar a Premium</button>
+        </form>
+        <div class="mt-3">
+            <a href="/users/profile" class="text-secondary">Regresar al perfil</a>
+        </div>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+</body>
+
+</html>
+
+
+
+
+
+
+
+  

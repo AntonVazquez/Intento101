@@ -38,6 +38,11 @@ router.post('/recipes/:id/save', userController.ensureAuthenticated, userControl
 // Quitar una receta guardada del perfil del usuario
 router.delete('/recipes/:id/unsave', userController.ensureAuthenticated, userController.unsaveRecipe);
 
+// Ruta para mostrar el formulario de actualización a premium (si quieres usar un formulario)
+router.get('/upgrade', userController.ensureAuthenticated, userController.showUpgradeForm);
+
+// Ruta para manejar la actualización a premium
+router.post('/upgrade', userController.ensureAuthenticated, userController.upgradeToPremium);
 
 module.exports = router;
 

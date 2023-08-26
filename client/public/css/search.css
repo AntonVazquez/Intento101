@@ -1,55 +1,53 @@
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .recipe-list,
-  .menu-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .recipe-list .card,
-  .menu-list .card {
-    flex-basis: calc(33% - 20px); /* Asumiendo que deseas 3 tarjetas por fila */
-    margin-bottom: 20px;
-  }
-  
-  .recipe-list .card img,
-  .menu-list .card img {
-    width: 100%;
-    height: 200px; /* Puedes cambiarlo a tu gusto */
-    object-fit: cover;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
-  }
-  
-  .pagination .page-item .page-link {
-    color: #007bff;
-  }
-  
-  .pagination .page-item.active .page-link {
-    color: #fff;
-    background-color: #007bff;
-  }
-  
-  .pagination .page-item.disabled .page-link {
-    color: #6c757d;
-  }
-  
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-select, 
+.search-input, 
+.search-button {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-button {
+  background-color: #1eb9c6;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.search-button:hover {
+  background-color: #0c464b;
+}
+
+h1, h2 {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #14666e; /* Tomando el color que usaste anteriormente para los h3 en 'CÓMO Funciona' */
+  border-bottom: 3px solid #f5f5f5; /* Una línea debajo del título para separar visualmente el título de los contenidos siguientes */
+  padding-bottom: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1eb9c6;
+}

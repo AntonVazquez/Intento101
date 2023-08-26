@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Comparar Precios</title>
-  <link rel="stylesheet" href="/css/main.css">
+  <%- include('partials/Head.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/css/comparePrices.css">
 </head>
 <body>
   <%- include('partials/Navbar.ejs') %>
@@ -23,7 +23,7 @@
         <hr>
       <% }) %>
 
-      <h2>Lista de Compra</h2>
+      <h1>Lista de Compra</h1>
       <% for (let supermarket in shoppingList) { %>
         <h3><%= supermarket %>:</h3>
         <% shoppingList[supermarket].ingredients.forEach(function(item) { %>
@@ -32,7 +32,7 @@
             (Necesario: <%= item.requiredQuantity %>, Cantidad por paquete: <%= item.packageQuantity %>)
           </p>
         <% }); %>
-        <p>Total en <%= supermarket %>: $<%= shoppingList[supermarket].totalCost.toFixed(2) %></p>
+        <h3>Total en <%= supermarket %>: $<%= shoppingList[supermarket].totalCost.toFixed(2) %></h3>
         <hr>
       <% } %>
 
