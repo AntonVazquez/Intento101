@@ -8,6 +8,8 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongo');
 const flash = require('connect-flash'); // Importamos el modulo connect-flash
+require('dotenv').config({ path: __dirname + '/.env' });
+
 
 // Importa los routers
 const routers = require('./routes/index');
@@ -86,6 +88,6 @@ routers(app); // Usar la función importada de routers para configurar las rutas
 
 // Inicia el servidor
 const port = process.env.PORT;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on 0.0.0.0:${port}`);
 });
