@@ -4,7 +4,7 @@ const passport = require('passport');
 
 // Mostrar formulario de registro
 exports.showRegisterForm = (req, res) => {
-  res.render('register', { messages: req.flash() });
+  res.render('Register', { messages: req.flash() });
 };
 
 // Registro de usuarios
@@ -31,7 +31,7 @@ exports.registerUser = async (req, res) => {
 
 // Mostrar formulario de login
 exports.showLoginForm = (req, res) => {
-  res.render('login', { messages: req.flash() });
+  res.render('Login', { messages: req.flash() });
 };
 
 // Autenticación de usuarios

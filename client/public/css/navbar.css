@@ -3,43 +3,68 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid #1eb9c6;
     display: flex;
-    justify-content: space-between; /* Distribuir el espacio entre los elementos */
-    align-items: center; /* Centrar verticalmente */
-    padding-right: 250px; /* Espacio adicional a la derecha para separar los elementos del borde */
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 1.5rem;
 }
 
 .navbar-collapse {
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center;     /* Centrar verticalmente */
-    flex-grow: 1;            /* Permitir que el elemento crezca y ocupe el espacio disponible */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 }
 
 .navbar-brand img.logo-image {
     height: 20px;
     vertical-align: bottom;
-    margin-right: 0px; /* Aumentar el espacio a la derecha de la imagen */
-    margin-left: 50px; /* Aumentar el espacio a la izquierda de la imagen */
-
+    margin-right: 0px;
+    margin-left: 50px;
 }
 
 .icon-link {
-    margin-left: 150px; /* Ajusta este valor según el espacio que desees entre el último elemento y el icono */
+    margin-left: 150px;
 }
 
 .cart-icon {
-    height: 35px; /* Ajustar según el tamaño deseado del icono */
+    height: 35px;
     vertical-align: middle;
 }
 
-
 .navbar-toggler {
     border-color: #ddd;
-    display: none; /* Ocultar por defecto */
 }
 
 @media screen and (max-width: 768px) {
-    /* Mostrar el toggler solo en pantallas pequeñas */
+    .navbar {
+        padding-right: 20px; 
+        flex-wrap: wrap;
+    }
+
+    .navbar-brand img.logo-image {
+        margin-left: 20px;
+    }
+
+    .icon-link {
+        margin-left: 20px;
+    }
+
+    .navbar-collapse {
+        justify-content: flex-start;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+    }
+
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+
+    .cart-icon {
+        height: 25px;
+    }
+    
     .navbar-toggler {
         display: block;
     }
@@ -62,7 +87,7 @@
 }
 
 .nav-item a {
-    color: #1eb9c6; 
+    color: #1eb9c6;
     text-decoration: none;
     font-weight: 600;
     font-size: 1.05em;
@@ -75,5 +100,6 @@
 }
 
 .nav-item.active a {
-    color: #1eb9c6; 
+    color: #1eb9c6;
 }
+

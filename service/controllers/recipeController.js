@@ -34,7 +34,7 @@ exports.saveRecipe = async (req, res) => {
     user.savedRecipes.push(recipeId);
     await user.save();
     req.flash('success', ['Receta guardada con éxito.']);
-    res.redirect('/users/profile'); // Suponiendo que '/profile' es la ruta del perfil del usuario
+    res.redirect('/users/profile'); 
   } else {
     req.flash('warning', ['La receta ya está guardada.']);
     res.redirect('/users/profile');
@@ -51,7 +51,7 @@ exports.unsaveRecipe = async (req, res) => {
     user.savedRecipes.splice(index, 1);
     await user.save();
     req.flash('success', ['Receta quitada con éxito.']);
-    res.redirect('/users/profile'); // Suponiendo que '/profile' es la ruta del perfil del usuario
+    res.redirect('/users/profile');
   } else {
     req.flash('error', ['Receta no encontrada en las recetas guardadas.']);
     res.redirect('/users/profile');

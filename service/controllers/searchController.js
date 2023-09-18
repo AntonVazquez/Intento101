@@ -94,7 +94,7 @@ exports.search = async (req, res) => {
         break;
     }
 
-    res.render('searchResults', { results: results, pagination: pagination, searchType: searchType, query: query });
+    res.render('SearchResults', { results: results, pagination: pagination, searchType: searchType, query: query });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error durante la búsqueda');

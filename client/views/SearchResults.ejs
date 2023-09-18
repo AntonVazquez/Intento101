@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('partials/Head.ejs') %>
+<%- include('partials/head.ejs') %>
 <link rel="stylesheet" type="text/css" href="/css/search.css">
 
 <body>
-  <%- include('partials/Navbar.ejs') %>
+  <%- include('partials/navbar.ejs') %>
 
   <div class="container">
     <%- include('partials/SearchForm.ejs') %>
@@ -15,21 +15,21 @@
     <h2>Recetas</h2>
     <div class="recipe-list">
       <% results.recipes.forEach(recipe => { %>
-        <%- include('partials/RecipeCard.ejs', { recipe: recipe }) %>
+        <%- include('partials/recipeCard.ejs', { recipe: recipe }) %>
       <% }) %>
     </div>
 
     <h2>Menús</h2>
     <div class="menu-list">
       <% results.menus.forEach(menu => { %>
-        <%- include('partials/MenuCard.ejs', { menu: menu }) %>
+        <%- include('partials/menuCard.ejs', { menu: menu }) %>
       <% }) %>
     </div>
 
-    <%- include('partials/Pagination.ejs') %>
+    <%- include('partials/pagination.ejs') %>
   </div>
 
-  <%- include('partials/Footer.ejs') %>
+  <%- include('partials/footer.ejs') %>
 </body>
 
 </html>

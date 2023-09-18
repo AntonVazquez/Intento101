@@ -53,7 +53,7 @@ body {
   background-color: #b3bcbc;
   border-color: #b3bcbc;
   color: #1eb9c6;
-  transform: scale(5.05) ; /* Usa !important temporalmente para asegurarte de que se aplique el estilo */
+  transform: scale(1.05) ; /* Usa !important temporalmente para asegurarte de que se aplique el estilo */
 }
 
 
@@ -117,3 +117,34 @@ h2 {
   opacity: 1;
 }
 
+@media (max-width: 768px) {
+  .container-relative h2, 
+  .container-relative p {
+    font-size: 1em; 
+    position: relative; /* Cambia la posición a relativa para que no se superpongan con otros elementos. */
+    top: auto; /* Elimina la propiedad top para que sigan el flujo normal del documento. */
+    left: auto; /* Elimina la propiedad left para que sigan el flujo normal del documento. */
+    width: 100%; /* Permite que los textos tomen el ancho completo del contenedor. */
+    margin-bottom: 10px; /* Agrega un margen en la parte inferior para dar espacio al botón. */
+  }
+
+  .container .row {
+    flex-wrap: wrap; 
+  }
+
+  .col-md-3 {
+    flex: 0 0 50%; /* Ahora permite que dos elementos ocupen una fila */
+    max-width: 50%; /* Ajusta el max-width para coincidir con el valor de flex */
+  }
+
+  .container-relative .btn {
+    font-size: 0.9em; 
+    padding: 10px 20px; 
+    position: relative; /* Cambia la posición a relativa para que no se superpongan con otros elementos. */
+    bottom: auto; /* Elimina la propiedad bottom para que sigan el flujo normal del documento. */
+    left: auto; /* Elimina la propiedad left para que sigan el flujo normal del documento. */
+    display: inline-block; /* Cambia el display a inline-block para que tome el ancho según su contenido. */
+    margin: 0 0 20px; /* Ajusta los márgenes para dar espacio alrededor del botón. */
+    width: auto; /* Ajusta el ancho a auto para que tome el ancho según su contenido. */
+  }
+}

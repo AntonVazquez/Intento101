@@ -92,16 +92,24 @@
     </div>
   </div>
 
-  <%- include('./partials/Footer.ejs') %>
+  <%- include('partials/footer.ejs') %>
 </body>
 <script>
   const swiper = new Swiper('.swiper-container', {
-    slidesPerView: 4,
-    spaceBetween: 30,
+    slidesPerView: 1,
+    spaceBetween: 20,
     pagination: {
       el: '.global-swiper-pagination',
       clickable: true,
     },
+    breakpoints: {
+      // cuando la pantalla es >= 769px
+      768: {
+        slidesPerView: 4,
+        spaceBetween: 30
+      }
+    }
   });
 </script>
+
 </html>
